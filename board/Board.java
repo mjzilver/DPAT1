@@ -49,6 +49,21 @@ public class Board {
                 currentColumn.addCell(cell);
             }
         }
+
+        // filling the boxes 3x3's inside the 9x9
+        for (int boxRow = 0; boxRow < 3; boxRow++) {
+            for (int boxCol = 0; boxCol < 3; boxCol++) {
+                CellHolder boxCells = new CellHolder();
+                
+                for (int row = boxRow * 3; row < boxRow * 3 + 3; row++) {
+                    for (int col = boxCol * 3; col < boxCol * 3 + 3; col++) {
+                        boxCells.addCell(getCell(row, col));
+                    }
+                }
+    
+                box.add(boxCells);
+            }
+        }
     }
 
     public ArrayList<CellHolder> getRows() {

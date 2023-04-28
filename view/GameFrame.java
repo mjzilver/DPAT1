@@ -26,16 +26,17 @@ public class GameFrame extends JFrame {
                 if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     System.exit(0);
 				} else if (e.getKeyCode() >= KeyEvent.VK_0 && e.getKeyCode() <= KeyEvent.VK_9) {
-                    int number = e.getKeyCode() - KeyEvent.VK_0; // convert key code to integer
-                    view.handleNumber(number); // pass the number to a function
+                    // convert key code to integer by subtracting the 0th
+                    int number = e.getKeyCode() - KeyEvent.VK_0; 
+                    view.handleNumber(number); 
                 }
             }
         });
 
         this.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                int x = e.getX(); // get x coordinate of mouse click
-                int y = e.getY(); // get y coordinate of mouse click
+                int x = e.getX(); 
+                int y = e.getY();
                 
                 view.handleClick(y, x);
             }

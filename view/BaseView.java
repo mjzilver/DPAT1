@@ -39,8 +39,8 @@ public class BaseView extends JPanel {
             ArrayList<Cell> cells = this.board.getRows().get(y).getCells();
             for (int x = 0; x < cells.size(); x++) {
 
-                int xpos = x * (RECTSIZE + SPACING);
-                int ypos = SPACING + y * + (RECTSIZE + SPACING);
+                int xpos = SPACING + x * (RECTSIZE + SPACING);
+                int ypos = SPACING + y * (RECTSIZE + SPACING);
 
                 if(x == selectedCellX && y == selectedCellY)
                     g.setColor(Color.GREEN);
@@ -61,6 +61,7 @@ public class BaseView extends JPanel {
 	}
 	
     public void handleClick(int y, int x) {
+        // round it down to the y, x used by the board
         this.selectedCellX = (int) Math.floor((x - SPACING) / (double)(RECTSIZE + SPACING));
         this.selectedCellY = (int) Math.floor((y - SPACING) / (double)(RECTSIZE + SPACING));
     }
