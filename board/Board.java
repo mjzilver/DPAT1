@@ -8,7 +8,23 @@ public class Board {
     private ArrayList<CellHolder> box = new ArrayList<CellHolder>();
 
     private int width = 0;
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
     private int height = 0;
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
 
     public Board(int width, int height) {
         this.width = width;
@@ -37,5 +53,9 @@ public class Board {
 
     public ArrayList<CellHolder> getRows() {
         return rows;
+    }
+
+    public Cell getCell(int y, int x) {
+        return rows.get(y).get(x);
     }
 }

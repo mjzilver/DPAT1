@@ -23,7 +23,10 @@ public class BaseView extends JPanel {
     public final static int FONTSPACING = 70;
 
     private Board board;
-	
+
+    private int selectedCellX = -1;
+    private int selectedCellY = -1;
+
 	public BaseView(Board board) {
        this.board = board;
 	}
@@ -36,10 +39,14 @@ public class BaseView extends JPanel {
             ArrayList<Cell> cells = this.board.getRows().get(y).getCells();
             for (int x = 0; x < cells.size(); x++) {
 
-                int xpos = x * RECTSIZE + SPACING * x;
-                int ypos = SPACING + y * + RECTSIZE + SPACING * y;
+                int xpos = x * (RECTSIZE + SPACING);
+                int ypos = SPACING + y * + (RECTSIZE + SPACING);
 
-                g.setColor(Color.BLACK);
+                if(x == selectedCellX && y == selectedCellY)
+                    g.setColor(Color.GREEN);
+                else
+                    g.setColor(Color.BLACK);
+
                 g.fillRect(
                     xpos, 
                     ypos, 
@@ -53,6 +60,11 @@ public class BaseView extends JPanel {
         }
 	}
 	
+    public void handleClick(int y, int x) {
+        this.selectedCellX = (int) Math.floor((x - SPACING) / (double)(RECTSIZE + SPACING));
+        this.selectedCellY = (int) Math.floor((y - SPACING) / (double)(RECTSIZE + SPACING));
+    }
+
 	public Dimension getPreferredSize() {
 		return new Dimension(WIDTH, HEIGHT);
 	}
@@ -60,4 +72,8 @@ public class BaseView extends JPanel {
 	public Dimension getMinimumSize() {
 		return getPreferredSize();
 	}
+
+    public void handleNumber(int number) {
+        this.board.getCell(selectedCellY, selectedCellX).setValue(number);
+    }
 }
