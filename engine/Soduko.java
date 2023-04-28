@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import board.Board;
 import board.BoardFactory;
+import view.BaseView;
 import view.GameFrame;
 
 public class Soduko {
@@ -14,7 +15,8 @@ public class Soduko {
     int currentState = 1;
     int currentView = 1;
     boolean gameLoop = true;
-    GameFrame window = new GameFrame();
+    GameFrame window;
+    BaseView baseView;
 
     private int DRAW_DELAY = 1000 / 60;
 	private Timer drawTimer;
@@ -22,13 +24,10 @@ public class Soduko {
     public Soduko() {
         BoardFactory boardFactory = new BoardFactory();
         this.board = boardFactory.createBoard();
+        this.baseView = new BaseView(this.board);
+        this.window = new GameFrame(this.baseView);
 
-        this.setWindow();
         this.start();
-    }
-
-    private void setWindow() {
-  
     }
 
     public void start() {

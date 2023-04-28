@@ -1,16 +1,21 @@
 package view;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class GameFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private BaseView baseView = new BaseView();
+    JPanel view;
 
-	public GameFrame() {
+	public GameFrame(JPanel view) {
+        super("Sudoku Board");
+
+        this.view = view;
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.getContentPane().add(baseView);
+		this.getContentPane().add(view);
 		this.setResizable(false);
 		this.pack();
 		this.setVisible(true);
@@ -26,7 +31,7 @@ public class GameFrame extends JFrame {
 	
 	public void setActiveView(){
 		this.getContentPane().removeAll();
-		this.getContentPane().add(baseView);
+		this.getContentPane().add(this.view);
 		this.pack();
 		this.setVisible(true);
 		this.repaint();		
