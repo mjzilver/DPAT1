@@ -3,19 +3,19 @@ package state;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import engine.Soduko;
 import view.BaseView;
 
 public class FinalNumberState extends BaseState {
-    public FinalNumberState(BaseView view) {
-        super(view);
+    public FinalNumberState(Soduko soduko) {
+        super(soduko);
+        BaseView view = soduko.getView();
         view.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) { 
-                if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    System.exit(0);
-				} else if (e.getKeyCode() >= KeyEvent.VK_0 && e.getKeyCode() <= KeyEvent.VK_9) {
+                if (e.getKeyCode() >= KeyEvent.VK_0 && e.getKeyCode() <= KeyEvent.VK_9) {
                     // convert key code to integer by subtracting the 0th
                     int number = e.getKeyCode() - KeyEvent.VK_0; 
-                    view.board.setCell(view.selectedCellY, view.selectedCellX, number, true);
+                    soduko.getBoard().setCell(view.selectedCellY, view.selectedCellX, number, true);
                 }
             }
         });

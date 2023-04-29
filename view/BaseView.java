@@ -2,8 +2,6 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -15,7 +13,7 @@ import board.Cell;
 import board.CellHolder;
 import observer.Observer;
 
-public class BaseView extends JPanel implements Observer {
+public abstract class BaseView extends JPanel implements Observer {
 	private static final long serialVersionUID = 1L;
 
 	public final static int HEIGHT = (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.8);
@@ -42,34 +40,31 @@ public class BaseView extends JPanel implements Observer {
             ArrayList<Cell> cells = board.getRows().get(y).getCells();
             for (int x = 0; x < cells.size(); x++) {
                 Cell currentCell = cells.get(x);
-                int xpos = SPACING + x * (RECTSIZE + SPACING);
-                int ypos = SPACING + y * (RECTSIZE + SPACING);
-
-                if(x == selectedCellX && y == selectedCellY) {
-                    g.setColor(Color.GREEN);
-                } else {
-                    g.setColor(Color.BLACK);
-                }
-
-                g.fillRect(
-                    xpos, 
-                    ypos, 
-                    RECTSIZE, 
-                    RECTSIZE);
-
-                String text = Integer.toString(currentCell.getValue());
-                g.setFont(g.getFont().deriveFont(((float)FONTTSIZE)));
-                g.setColor(Color.WHITE);
-
-                Font font = new Font("Arial", Font.PLAIN, FONTTSIZE);
-                FontMetrics metrics = g.getFontMetrics(font);
-                int textWidth = metrics.stringWidth(text);
-                int textHeight = metrics.getHeight();
-
-                g.drawString(text, xpos + (textWidth), ypos + (textHeight));
+                drawCell(g, y, x, currentCell);
             }
         }
 	}
+
+    protected void drawCell(Graphics g, int y, int x, Cell cell) {
+        int xpos = SPACING + x * (RECTSIZE + SPACING);
+        int ypos = SPACING + y * (RECTSIZE + SPACING);
+
+        if(x == selectedCellX && y == selectedCellY) {
+            g.setColor(Color.GREEN);
+        } else {
+            g.setColor(Color.BLACK);
+        }
+
+        g.fillRect(
+            xpos, 
+            ypos, 
+            RECTSIZE, 
+            RECTSIZE);
+
+        drawDecoratedCell(g, y, x, cell);
+    }
+
+    protected abstract void drawDecoratedCell(Graphics g, int y, int x, Cell cell);
 	
     public void handleClick(int y, int x) {
         // round it down to the y, x used by the board

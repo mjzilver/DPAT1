@@ -4,12 +4,10 @@ import javax.swing.JFrame;
 public class GameFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-    BaseView view;
 
 	public GameFrame(BaseView view) {
         super("Sudoku Board");
 
-        this.view = view;
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().add(view);
 		this.setResizable(false);
@@ -17,9 +15,9 @@ public class GameFrame extends JFrame {
 		this.setVisible(true);
     }
 	
-	public void setActiveView(){
+	public void setActiveView(BaseView view) {
 		this.getContentPane().removeAll();
-		this.getContentPane().add(this.view);
+		this.getContentPane().add(view);
 		this.pack();
 		this.setVisible(true);
 		this.repaint();		

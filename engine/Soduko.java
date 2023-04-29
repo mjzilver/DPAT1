@@ -7,12 +7,14 @@ import board.Board;
 import board.BoardFactory;
 import state.BaseState;
 import state.FinalNumberState;
+import state.HelperNumberState;
 import view.BaseView;
+import view.FinalViewDecorator;
 import view.GameFrame;
+import view.HelperViewDecorator;
 
 public class Soduko {
     Board board;
-    boolean gameLoop = true;
     GameFrame window;
     BaseView view;
     BaseState state;
@@ -20,11 +22,11 @@ public class Soduko {
     public Soduko() {
         BoardFactory boardFactory = new BoardFactory();
         board = boardFactory.createBoard();
-        view = new BaseView(board);
+        view = new FinalViewDecorator(board);
         window = new GameFrame(view);
-        state = new FinalNumberState(view);
+        state = new FinalNumberState(this);
         
-        view.addMouseListener(new MouseAdapter() {
+        window.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 int x = e.getX(); 
                 int y = e.getY();
@@ -34,6 +36,26 @@ public class Soduko {
         });
     }
 
-    public void switchView() {}
-    public void switchEditor() {}
+    public void switchState() {
+        if(this.state instanceof FinalNumberState) {
+            this.view = new HelperViewDecorator(board);
+            this.state = new HelperNumberState(this);
+        } else {
+            this.view = new FinalViewDecorator(board);
+            this.state = new FinalNumberState(this);
+        }
+        window.setActiveView(view);
+    }
+
+    public BaseView getView() {
+        return view;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public GameFrame getWindow() {
+        return window;
+    }
 }
