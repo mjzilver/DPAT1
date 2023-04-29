@@ -2,6 +2,8 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -15,12 +17,11 @@ public class BaseView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 		
-	public final static int WIDTH = 900;
-	public final static int HEIGHT = 910;
-    public final static int RECTSIZE = 90;
-    public final static int SPACING = 10;
-    public final static int FONTTSIZE = 50;
-    public final static int FONTSPACING = 70;
+	public final static int WIDTH = 800;
+	public final static int HEIGHT = WIDTH;
+    public final static int RECTSIZE = WIDTH / 10;
+    public final static int SPACING = WIDTH / 100;
+    public final static int FONTTSIZE = RECTSIZE / 2;
 
     private Board board;
 
@@ -55,7 +56,14 @@ public class BaseView extends JPanel {
 
                 g.setFont(g.getFont().deriveFont(((float)FONTTSIZE)));
                 g.setColor(Color.WHITE);
-                g.drawString(Integer.toString(cells.get(x).getValue()), xpos + FONTSPACING/2, ypos + FONTSPACING);
+
+                String text = Integer.toString(cells.get(x).getValue());
+                Font font = new Font("Arial", Font.PLAIN, FONTTSIZE);
+                FontMetrics metrics = g.getFontMetrics(font);
+                int textWidth = metrics.stringWidth(text);
+                int textHeight = metrics.getHeight();
+
+                g.drawString(text, xpos + (textWidth), ypos + (textHeight));
             }
         }
 	}
