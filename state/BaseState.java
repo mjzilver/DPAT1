@@ -4,10 +4,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import engine.Soduko;
+import view.BaseView;
 
 public class BaseState {
     BaseState(Soduko soduko) {
-        soduko.getView().addKeyListener(new KeyAdapter() {
+        BaseView view = soduko.getView();
+        System.out.println(view);
+        view.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) { 
                 if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     System.exit(0);
@@ -16,6 +19,6 @@ public class BaseState {
                 }
             }
         });
-        soduko.getView().requestFocusInWindow(); 
+        view.requestFocusInWindow(); 
     }
 }

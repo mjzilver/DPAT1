@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -84,5 +85,12 @@ public abstract class BaseView extends JPanel implements Observer {
     @Override
     public void update() {
         repaint();
+    }
+
+    public void deconstruct() {
+        KeyListener[] keyListeners = this.getKeyListeners();
+        for (KeyListener kl : keyListeners) {
+            this.removeKeyListener(kl);
+        }
     }
 }

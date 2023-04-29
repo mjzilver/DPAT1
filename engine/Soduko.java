@@ -37,12 +37,14 @@ public class Soduko {
     }
 
     public void switchState() {
-        if(this.state instanceof FinalNumberState) {
-            this.view = new HelperViewDecorator(board);
-            this.state = new HelperNumberState(this);
+        if(state instanceof FinalNumberState) {
+            view.deconstruct();
+            view = new HelperViewDecorator(board);
+            state = new HelperNumberState(this);
         } else {
-            this.view = new FinalViewDecorator(board);
-            this.state = new FinalNumberState(this);
+            view.deconstruct();
+            view = new FinalViewDecorator(board);
+            state = new FinalNumberState(this);
         }
         window.setActiveView(view);
     }
