@@ -21,7 +21,7 @@ public class Cell {
         return isFinal;
     }
 
-    public void setFinal() {
-        this.isFinal = true;
+    public void setFinal(boolean isFinal) {
+        this.isFinal = isFinal;
     }
 }

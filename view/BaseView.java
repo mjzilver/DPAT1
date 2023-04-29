@@ -24,10 +24,10 @@ public class BaseView extends JPanel implements Observer {
     public final static int SPACING = WIDTH / 100;
     public final static int FONTTSIZE = RECTSIZE / 2;
 
-    private Board board;
+    public Board board;
 
-    private int selectedCellX = -1;
-    private int selectedCellY = -1;
+    public int selectedCellX = -1;
+    public int selectedCellY = -1;
 
 	public BaseView(Board board) {
        this.board = board;
@@ -41,14 +41,15 @@ public class BaseView extends JPanel implements Observer {
         for (int y = 0; y < rows.size(); y++) {
             ArrayList<Cell> cells = board.getRows().get(y).getCells();
             for (int x = 0; x < cells.size(); x++) {
-
+                Cell currentCell = cells.get(x);
                 int xpos = SPACING + x * (RECTSIZE + SPACING);
                 int ypos = SPACING + y * (RECTSIZE + SPACING);
 
-                if(x == selectedCellX && y == selectedCellY)
+                if(x == selectedCellX && y == selectedCellY) {
                     g.setColor(Color.GREEN);
-                else
+                } else {
                     g.setColor(Color.BLACK);
+                }
 
                 g.fillRect(
                     xpos, 
@@ -56,10 +57,10 @@ public class BaseView extends JPanel implements Observer {
                     RECTSIZE, 
                     RECTSIZE);
 
+                String text = Integer.toString(currentCell.getValue());
                 g.setFont(g.getFont().deriveFont(((float)FONTTSIZE)));
                 g.setColor(Color.WHITE);
 
-                String text = Integer.toString(cells.get(x).getValue());
                 Font font = new Font("Arial", Font.PLAIN, FONTTSIZE);
                 FontMetrics metrics = g.getFontMetrics(font);
                 int textWidth = metrics.stringWidth(text);
@@ -84,10 +85,6 @@ public class BaseView extends JPanel implements Observer {
 	public Dimension getMinimumSize() {
 		return getPreferredSize();
 	}
-
-    public void handleNumber(int number) {
-        board.setCell(selectedCellY, selectedCellX, number);
-    }
 
     @Override
     public void update() {

@@ -80,4 +80,11 @@ public class Board implements Observable {
         getCell(y, x).setValue(number);
         notifyObservers();
     }
+
+    public void setCell(int y, int x, int number, boolean isFinal) {
+        Cell cell = getCell(y, x); 
+        cell.setValue(number);
+        cell.setFinal(isFinal);
+        notifyObservers();
+    }
 }
