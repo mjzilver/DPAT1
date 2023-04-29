@@ -13,11 +13,11 @@ import javax.swing.JPanel;
 import board.Board;
 import board.Cell;
 import board.CellHolder;
+import observer.Observer;
 
-public class BaseView extends JPanel {
-
+public class BaseView extends JPanel implements Observer {
 	private static final long serialVersionUID = 1L;
-		
+
 	public final static int HEIGHT = (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.8);
 	public final static int WIDTH = HEIGHT;
     public final static int RECTSIZE = WIDTH / 10;
@@ -31,14 +31,15 @@ public class BaseView extends JPanel {
 
 	public BaseView(Board board) {
        this.board = board;
+       board.attach(this);
 	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		this.setBackground(new Color(39, 43, 48));
-        ArrayList<CellHolder> rows = this.board.getRows();
+		setBackground(new Color(39, 43, 48));
+        ArrayList<CellHolder> rows = board.getRows();
         for (int y = 0; y < rows.size(); y++) {
-            ArrayList<Cell> cells = this.board.getRows().get(y).getCells();
+            ArrayList<Cell> cells = board.getRows().get(y).getCells();
             for (int x = 0; x < cells.size(); x++) {
 
                 int xpos = SPACING + x * (RECTSIZE + SPACING);
@@ -71,8 +72,9 @@ public class BaseView extends JPanel {
 	
     public void handleClick(int y, int x) {
         // round it down to the y, x used by the board
-        this.selectedCellX = (int) Math.floor((x - SPACING) / (double)(RECTSIZE + SPACING));
-        this.selectedCellY = (int) Math.floor((y - SPACING) / (double)(RECTSIZE + SPACING));
+        selectedCellX = (int) Math.floor((x - SPACING) / (double)(RECTSIZE + SPACING));
+        selectedCellY = (int) Math.floor((y - SPACING) / (double)(RECTSIZE + SPACING));
+        repaint();
     }
 
 	public Dimension getPreferredSize() {
@@ -84,6 +86,11 @@ public class BaseView extends JPanel {
 	}
 
     public void handleNumber(int number) {
-        this.board.getCell(selectedCellY, selectedCellX).setValue(number);
+        board.setCell(selectedCellY, selectedCellX, number);
+    }
+
+    @Override
+    public void update() {
+        repaint();
     }
 }

@@ -2,7 +2,9 @@ package board;
 
 import java.util.ArrayList;
 
-public class Board {
+import observer.Observable;
+
+public class Board implements Observable {
     private ArrayList<CellHolder> rows = new ArrayList<CellHolder>();
     private ArrayList<CellHolder> columns = new ArrayList<CellHolder>();
     private ArrayList<CellHolder> box = new ArrayList<CellHolder>();
@@ -72,5 +74,10 @@ public class Board {
 
     public Cell getCell(int y, int x) {
         return rows.get(y).get(x);
+    }
+
+    public void setCell(int y, int x, int number) {
+        getCell(y, x).setValue(number);
+        notifyObservers();
     }
 }
