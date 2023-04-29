@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -17,8 +18,8 @@ public class BaseView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 		
-	public final static int WIDTH = 800;
-	public final static int HEIGHT = WIDTH;
+	public final static int HEIGHT = (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.8);
+	public final static int WIDTH = HEIGHT;
     public final static int RECTSIZE = WIDTH / 10;
     public final static int SPACING = WIDTH / 100;
     public final static int FONTTSIZE = RECTSIZE / 2;
