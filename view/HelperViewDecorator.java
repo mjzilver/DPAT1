@@ -9,20 +9,32 @@ import board.Board;
 import board.Cell;
 import board.CellType;
 
-public class HelperViewDecorator extends BaseView{
+public class HelperViewDecorator extends BaseView {
     public HelperViewDecorator(Board board) {
         super(board);
     }
-    
+
     @Override
     public void drawDecoratedCell(Graphics g, int y, int x, Cell cell) {
         int xpos = SPACING + x * (RECTSIZE + SPACING);
         int ypos = SPACING + y * (RECTSIZE + SPACING);
 
-        if (cell.getType() == CellType.HELPER) {
+        if (cell.getType() != CellType.EMPTY) {
             String text = Integer.toString(cell.getValue());
-            g.setFont(g.getFont().deriveFont(((float)FONTTSIZE)));
-            g.setColor(Color.WHITE);
+            g.setFont(g.getFont().deriveFont(((float) FONTTSIZE)));
+            switch (cell.getType()) {
+                case FINAL:
+                    g.setColor(Color.lightGray);
+                    break;
+                case HELPER:
+                    g.setColor(Color.darkGray);
+                    break;
+                case KNOWN:
+                    g.setColor(Color.white);
+                    break;
+                default:
+                    break;
+            }
 
             Font font = new Font("Arial", Font.PLAIN, FONTTSIZE);
             FontMetrics metrics = g.getFontMetrics(font);

@@ -26,6 +26,8 @@ public abstract class BaseState {
                     System.exit(0);
 				} else if (e.getKeyCode() == KeyEvent.VK_TAB || e.getKeyCode() == KeyEvent.VK_R) {
                     soduko.switchState();
+                } else if (e.getKeyCode() == KeyEvent.VK_C) {
+                    soduko.checkAll();
                 } else if (e.getKeyCode() >= KeyEvent.VK_0 && e.getKeyCode() <= KeyEvent.VK_9) {
                     int number = e.getKeyCode() - KeyEvent.VK_0; 
                     handleNumber(number);

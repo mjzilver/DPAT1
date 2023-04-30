@@ -12,12 +12,14 @@ import view.BaseView;
 import view.FinalViewDecorator;
 import view.GameFrame;
 import view.HelperViewDecorator;
+import visitor.Visitor;
 
 public class Soduko {
     Board board;
     GameFrame window;
     BaseView view;
     BaseState state;
+    Visitor visitor = new Visitor();
 
     public Soduko() {
         BoardFactory boardFactory = new BoardFactory();
@@ -60,5 +62,10 @@ public class Soduko {
 
     public GameFrame getWindow() {
         return window;
+    }
+
+    public void checkAll() {
+        visitor.checkBoard(board);
+        board.notifyObservers();
     }
 }
