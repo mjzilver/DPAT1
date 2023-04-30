@@ -23,8 +23,9 @@ public abstract class BaseView extends JPanel implements Observer {
     public final static int SPACING = WIDTH / 100;
     public final static int FONTTSIZE = RECTSIZE / 2;
 
-    public Board board;
+    private Board board;
 
+    public String title = "Sodoku";
     public int selectedCellX = -1;
     public int selectedCellY = -1;
 

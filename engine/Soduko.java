@@ -38,15 +38,16 @@ public class Soduko {
 
     public void switchState() {
         if(state instanceof FinalNumberState) {
-            view.deconstruct();
+            state.detach(view);
             view = new HelperViewDecorator(board);
+            window.setActiveView(view);
             state = new HelperNumberState(this);
         } else {
-            view.deconstruct();
+            state.detach(view);
             view = new FinalViewDecorator(board);
+            window.setActiveView(view);
             state = new FinalNumberState(this);
         }
-        window.setActiveView(view);
     }
 
     public BaseView getView() {

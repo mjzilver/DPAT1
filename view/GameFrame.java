@@ -2,11 +2,10 @@ package view;
 import javax.swing.JFrame;
 
 public class GameFrame extends JFrame {
-
 	private static final long serialVersionUID = 1L;
 
 	public GameFrame(BaseView view) {
-        super("Sudoku Board");
+        super(view.title);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().add(view);
@@ -16,6 +15,7 @@ public class GameFrame extends JFrame {
     }
 	
 	public void setActiveView(BaseView view) {
+		this.setTitle(view.title);
 		this.getContentPane().removeAll();
 		this.getContentPane().add(view);
 		this.pack();
