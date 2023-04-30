@@ -2,11 +2,19 @@ package board;
 
 public class Cell {
     private int value = 0;
-    private boolean isFinal = false;
+    private CellStatus status = CellStatus.UNCHECKED;
+    private CellType type = CellType.EMPTY;
 
-    public Cell(int value, boolean isFinal) {
+    public CellType getType() {
+        return type;
+    }
+
+    public void setType(CellType type) {
+        this.type = type;
+    }
+
+    public Cell(int value) {
         this.value = value;
-        this.isFinal = isFinal;
     }
 
     public int getValue() {
@@ -17,11 +25,16 @@ public class Cell {
         this.value = value;
     }
 
-    public boolean isFinal() {
-        return isFinal;
+    public void emptyCell() {
+        this.value = 0;
+        this.type = CellType.EMPTY;
     }
 
-    public void setFinal(boolean isFinal) {
-        this.isFinal = isFinal;
+    public CellStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CellStatus status) {
+        this.status = status;
     }
 }

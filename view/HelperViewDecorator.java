@@ -7,6 +7,7 @@ import java.awt.Graphics;
 
 import board.Board;
 import board.Cell;
+import board.CellType;
 
 public class HelperViewDecorator extends BaseView{
     public HelperViewDecorator(Board board) {
@@ -18,7 +19,7 @@ public class HelperViewDecorator extends BaseView{
         int xpos = SPACING + x * (RECTSIZE + SPACING);
         int ypos = SPACING + y * (RECTSIZE + SPACING);
 
-        if (!cell.isFinal()) {
+        if (cell.getType() == CellType.HELPER) {
             String text = Integer.toString(cell.getValue());
             g.setFont(g.getFont().deriveFont(((float)FONTTSIZE)));
             g.setColor(Color.WHITE);

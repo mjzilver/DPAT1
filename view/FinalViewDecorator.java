@@ -7,6 +7,7 @@ import java.awt.Graphics;
 
 import board.Board;
 import board.Cell;
+import board.CellType;
 
 public class FinalViewDecorator extends BaseView {
     public FinalViewDecorator(Board board) {
@@ -18,7 +19,7 @@ public class FinalViewDecorator extends BaseView {
         int xpos = SPACING + x * (RECTSIZE + SPACING);
         int ypos = SPACING + y * (RECTSIZE + SPACING);
 
-        if (cell.isFinal() && cell.getValue() > 0) {
+        if (cell.getType() == CellType.FINAL) {
             String text = Integer.toString(cell.getValue());
             g.setFont(g.getFont().deriveFont(((float)FONTTSIZE)));
             g.setColor(Color.WHITE);

@@ -12,7 +12,7 @@ public class BoardFactory {
         for (int y = 0; y < rows.size(); y++) {
             ArrayList<Cell> cells = board.getRows().get(y).getCells();
             for (int x = 0; x < cells.size(); x++) {
-                board.setCell(y, x, random.nextInt(10));
+                board.setCell(y, x, random.nextInt(10), CellType.FINAL);
             }
         }
 

@@ -37,9 +37,8 @@ public class Board implements Observable {
             rows.add(row);
             
             for (int j = 0; j < width; j++) {
-                Cell cell = new Cell(0, false);
+                Cell cell = new Cell(0);
                 row.addCell(cell);
-
                 
                 if (columns.size() <= j) {
                     CellHolder newColumn = new CellHolder();
@@ -76,15 +75,10 @@ public class Board implements Observable {
         return rows.get(y).get(x);
     }
 
-    public void setCell(int y, int x, int number) {
-        getCell(y, x).setValue(number);
-        notifyObservers();
-    }
-
-    public void setCell(int y, int x, int number, boolean isFinal) {
-        Cell cell = getCell(y, x); 
+    public void setCell(int y, int x, int number, CellType type) {
+        Cell cell = getCell(y, x);
         cell.setValue(number);
-        cell.setFinal(isFinal);
+        cell.setType(type);
         notifyObservers();
     }
 }
