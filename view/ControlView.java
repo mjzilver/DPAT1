@@ -28,6 +28,7 @@ public class ControlView extends JPanel {
         switchStateButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 soduko.switchState();
+                soduko.getView().requestFocusInWindow();
             }
         });
 
@@ -35,6 +36,7 @@ public class ControlView extends JPanel {
         checkButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 soduko.checkAll();
+                soduko.getView().requestFocusInWindow();
             }
         });
 
@@ -42,6 +44,7 @@ public class ControlView extends JPanel {
         uncheckButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 soduko.uncheckAll();
+                soduko.getView().requestFocusInWindow();
             }
         });
 
