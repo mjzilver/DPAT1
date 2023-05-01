@@ -9,9 +9,18 @@ import board.CellStatus;
 
 public class Visitor {
     public boolean checkBoard(Board board) {
-        return (checkList(board.getBoxes())
-                && checkList(board.getColumns())
-                && checkList(board.getRows()));
+        boolean returnval = true;
+
+        if (!checkList(board.getBoxes())) {
+            returnval = false;
+        }
+        if(!checkList(board.getColumns())) {
+            returnval = false;
+        }
+        if(!checkList(board.getRows())) {
+            returnval = false;
+        }
+        return returnval;
     }
 
     public boolean checkList(ArrayList<CellHolder> list) {
@@ -33,7 +42,9 @@ public class Visitor {
                     cell.setStatus(CellStatus.WRONG);
                     returnval = false;
                 } else {
-                    cell.setStatus(CellStatus.CORRECT);
+                    if (cell.getStatus() == CellStatus.UNCHECKED) {
+                        cell.setStatus(CellStatus.CORRECT);
+                    }
                     used[cell.getValue() - 1] = true;
                 }
             }
@@ -43,7 +54,7 @@ public class Visitor {
 
     public void uncheckBoard(Board board) {
         for (CellHolder cellHolder : board.getRows()) {
-            for(Cell cell : cellHolder.getCells()) {
+            for (Cell cell : cellHolder.getCells()) {
                 cell.setStatus(CellStatus.UNCHECKED);
             }
         }
