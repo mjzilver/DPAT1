@@ -3,11 +3,13 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import board.Board;
 import board.Cell;
@@ -22,6 +24,8 @@ public abstract class BaseView extends JPanel implements Observer {
     public final static int RECTSIZE = WIDTH / 10;
     public final static int SPACING = WIDTH / 100;
     public final static int FONTTSIZE = RECTSIZE / 2;
+    // for some reason a mouseclick is offset
+    public final static int MOUSEOFFSET = 20; 
 
     private Board board;
 
@@ -86,9 +90,12 @@ public abstract class BaseView extends JPanel implements Observer {
     protected abstract void drawDecoratedCell(Graphics g, int y, int x, Cell cell);
 
     public void handleClick(int y, int x) {
+        y += MOUSEOFFSET; // this is needed
+        Point mousePoint = new Point(x, y);
+        SwingUtilities.convertPointFromScreen(mousePoint, this);
         // round it down to the y, x used by the board
-        selectedCellX = (int) Math.floor((x - SPACING) / (double) (RECTSIZE + SPACING));
-        selectedCellY = (int) Math.floor((y - SPACING) / (double) (RECTSIZE + SPACING));
+        selectedCellX = (int) Math.floor((mousePoint.x - SPACING) / (double) (RECTSIZE + SPACING));
+        selectedCellY = (int) Math.floor((mousePoint.y - SPACING) / (double) (RECTSIZE + SPACING));
         repaint();
     }
 
