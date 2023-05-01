@@ -40,4 +40,12 @@ public class Visitor {
         }
         return returnval;
     }
+
+    public void uncheckBoard(Board board) {
+        for (CellHolder cellHolder : board.getRows()) {
+            for(Cell cell : cellHolder.getCells()) {
+                cell.setStatus(CellStatus.UNCHECKED);
+            }
+        }
+    }
 }

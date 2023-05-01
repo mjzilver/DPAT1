@@ -9,6 +9,7 @@ import state.BaseState;
 import state.FinalNumberState;
 import state.HelperNumberState;
 import view.BaseView;
+import view.ControlView;
 import view.FinalViewDecorator;
 import view.GameFrame;
 import view.HelperViewDecorator;
@@ -27,6 +28,7 @@ public class Soduko {
         view = new FinalViewDecorator(board);
         window = new GameFrame(view);
         state = new FinalNumberState(this);
+        window.addView(new ControlView(this, BaseView.WIDTH));
         
         window.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -41,13 +43,15 @@ public class Soduko {
     public void switchState() {
         if(state instanceof FinalNumberState) {
             state.detach(view);
+            window.removeView(view);
             view = new HelperViewDecorator(board);
-            window.setActiveView(view);
+            window.addTopView(view);
             state = new HelperNumberState(this);
         } else {
             state.detach(view);
+            window.removeView(view);
             view = new FinalViewDecorator(board);
-            window.setActiveView(view);
+            window.addTopView(view);
             state = new FinalNumberState(this);
         }
     }
@@ -66,6 +70,11 @@ public class Soduko {
 
     public void checkAll() {
         visitor.checkBoard(board);
+        board.notifyObservers();
+    }
+
+    public void uncheckAll() {
+        visitor.uncheckBoard(board);
         board.notifyObservers();
     }
 }
