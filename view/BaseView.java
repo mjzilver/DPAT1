@@ -29,7 +29,6 @@ public abstract class BaseView extends JPanel implements Observer {
 
     private Board board;
 
-    public String title = "Sodoku";
     public int selectedCellX = -1;
     public int selectedCellY = -1;
 
