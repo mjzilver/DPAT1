@@ -118,4 +118,8 @@ public abstract class BaseView extends JPanel implements Observer {
             this.removeKeyListener(kl);
         }
     }
+
+    public String getTitle() {
+        return "Sodoku - ";
+    }
 }

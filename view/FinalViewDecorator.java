@@ -40,4 +40,9 @@ public class FinalViewDecorator extends BaseView {
             g.drawString(text, xpos + (textWidth), ypos + (textHeight));
         }
     }
+
+    @Override
+    public String getTitle() {
+        return super.getTitle() + "Final";
+    }
 }
