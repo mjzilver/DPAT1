@@ -29,7 +29,7 @@ public class Board implements Observable {
         this.height = height;
     }
 
-    public Board(int width, int height) {
+    public Board(int width, int height, int boxWidth, int boxHeight) {
         this.width = width;
         this.height = height;
 
@@ -53,17 +53,18 @@ public class Board implements Observable {
         }
 
         // filling the boxes 3x3's inside the 9x9
-        for (int boxRow = 0; boxRow < 3; boxRow++) {
-            for (int boxCol = 0; boxCol < 3; boxCol++) {
-                CellHolder boxCells = new CellHolder();
+        for (int i = 0; i < boxHeight; i++) {
+            for (int j = 0; j < boxWidth; j++) {
+                CellHolder box = new CellHolder();
+                boxes.add(box);
 
-                for (int row = boxRow * 3; row < boxRow * 3 + 3; row++) {
-                    for (int col = boxCol * 3; col < boxCol * 3 + 3; col++) {
-                        boxCells.addCell(getCell(row, col));
+                for (int k = 0; k < boxHeight; k++) {
+                    CellHolder row = rows.get(i * boxHeight + k);
+                    for (int l = 0; l < boxWidth; l++) {
+                        Cell cell = row.get(j * boxWidth + l);
+                        box.addCell(cell);
                     }
                 }
-
-                boxes.add(boxCells);
             }
         }
     }
