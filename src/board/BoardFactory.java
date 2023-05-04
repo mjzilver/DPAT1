@@ -11,7 +11,7 @@ public class BoardFactory implements FileReader {
     private HashMap<String, IBoardBuilder> _boardBuilders = new HashMap<>();
     public BoardFactory() {
         _boardBuilders.put("9x9", new NormalBoardBuilder(9,9,3,3));
-        _boardBuilders.put("6x6", new NormalBoardBuilder(6,6,2,3));
+        _boardBuilders.put("6x6", new NormalBoardBuilder(6,6,3,2));
         _boardBuilders.put("4x4", new NormalBoardBuilder(4,4,2,2));
     }
 
