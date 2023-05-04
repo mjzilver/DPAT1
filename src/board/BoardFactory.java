@@ -16,7 +16,6 @@ public class BoardFactory implements FileReader {
     }
 
     public Board createBoard(String fileName) {
-        // get the file extension and use it to determine the board type remove the dot from the extension
         String boardType = fileName.substring(fileName.indexOf(".") + 1);
         List<Integer> nums = LoadFile(fileName);
         IBoardBuilder builder = _boardBuilders.get(boardType);
