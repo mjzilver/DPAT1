@@ -3,16 +3,16 @@ package state;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import engine.Soduko;
+import engine.Sudoku;
 import view.BaseView;
 
 public abstract class BaseState {
-    protected Soduko soduko;
+    protected Sudoku sudoku;
     protected KeyAdapter keyAdapter; 
 
-    BaseState(Soduko soduko) {
-        this.soduko = soduko;
-        BaseView view = soduko.getView();
+    BaseState(Sudoku sudoku) {
+        this.sudoku = sudoku;
+        BaseView view = sudoku.getView();
         view.addKeyListener(makeKeyAdapter());
         view.requestFocusInWindow(); 
     }
@@ -25,9 +25,9 @@ public abstract class BaseState {
                 if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     System.exit(0);
 				} else if (e.getKeyCode() == KeyEvent.VK_TAB || e.getKeyCode() == KeyEvent.VK_R) {
-                    soduko.switchState();
+                    sudoku.switchState();
                 } else if (e.getKeyCode() == KeyEvent.VK_C) {
-                    soduko.checkAll();
+                    sudoku.checkAll();
                 } else if (e.getKeyCode() >= KeyEvent.VK_0 && e.getKeyCode() <= KeyEvent.VK_9) {
                     int number = e.getKeyCode() - KeyEvent.VK_0; 
                     handleNumber(number);

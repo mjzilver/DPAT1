@@ -2,29 +2,28 @@ package engine;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import board.Board;
 import board.BoardFactory;
+import builder.NormalBoardBuilder;
 import state.BaseState;
 import state.FinalNumberState;
 import state.HelperNumberState;
-import view.BaseView;
-import view.ControlView;
-import view.FinalViewDecorator;
-import view.GameFrame;
-import view.HelperViewDecorator;
+import view.*;
 import visitor.Visitor;
 
-public class Soduko {
+public class Sudoku {
     Board board;
     GameFrame window;
     BaseView view;
     BaseState state;
     Visitor visitor = new Visitor();
 
-    public Soduko() {
+    public Sudoku() {
         BoardFactory boardFactory = new BoardFactory();
-        board = boardFactory.createBoard();
+
+        board = boardFactory.createBoard("puzzle.9x9");
         view = new FinalViewDecorator(board);
         window = new GameFrame(view);
         state = new FinalNumberState(this);

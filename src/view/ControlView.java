@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import engine.Soduko;
+import engine.Sudoku;
 
 public class ControlView extends JPanel {
     public int width;
@@ -20,31 +20,31 @@ public class ControlView extends JPanel {
     private JButton checkButton;
     private JButton uncheckButton;
 
-    public ControlView(Soduko soduko, int width) {
+    public ControlView(Sudoku sudoku, int width) {
         this.width = width;
         this.height = 50;
 
         switchStateButton = new JButton("Switch State");
         switchStateButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                soduko.switchState();
-                soduko.getView().requestFocusInWindow();
+                sudoku.switchState();
+                sudoku.getView().requestFocusInWindow();
             }
         });
 
         checkButton = new JButton("Check Answer");
         checkButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                soduko.checkAll();
-                soduko.getView().requestFocusInWindow();
+                sudoku.checkAll();
+                sudoku.getView().requestFocusInWindow();
             }
         });
 
         uncheckButton = new JButton("Stop checking");
         uncheckButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                soduko.uncheckAll();
-                soduko.getView().requestFocusInWindow();
+                sudoku.uncheckAll();
+                sudoku.getView().requestFocusInWindow();
             }
         });
 

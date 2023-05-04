@@ -92,7 +92,7 @@ public abstract class BaseView extends JPanel implements Observer {
         y += MOUSEOFFSET; // this is needed
         Point mousePoint = new Point(x, y);
         SwingUtilities.convertPointFromScreen(mousePoint, this);
-        // round it down to the y, x used by the board
+        // round it down to the y, x used by the src.board
         selectedCellX = (int) Math.floor((mousePoint.x - SPACING) / (double) (RECTSIZE + SPACING));
         selectedCellY = (int) Math.floor((mousePoint.y - SPACING) / (double) (RECTSIZE + SPACING));
         repaint();
