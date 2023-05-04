@@ -53,14 +53,14 @@ public class Board implements Observable {
         }
 
         // filling the boxes 3x3's inside the 9x9
-        for (int i = 0; i < boxHeight; i++) {
-            for (int j = 0; j < boxWidth; j++) {
+        for (int i = 0; i < boxHeight - 1; i++) {
+            for (int j = 0; j < boxWidth - 1; j++) {
                 CellHolder box = new CellHolder();
                 boxes.add(box);
 
-                for (int k = 0; k < boxHeight; k++) {
+                for (int k = 0; k < boxHeight - 1; k++) {
                     CellHolder row = rows.get(i * boxHeight + k);
-                    for (int l = 0; l < boxWidth; l++) {
+                    for (int l = 0; l < boxWidth - 1; l++) {
                         Cell cell = row.get(j * boxWidth + l);
                         box.addCell(cell);
                     }
