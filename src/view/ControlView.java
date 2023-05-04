@@ -1,51 +1,38 @@
 package view;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
 import engine.Sudoku;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class ControlView extends JPanel {
     public int width;
     public int height;
 
-    private JButton switchStateButton;
-    private JButton checkButton;
-    private JButton uncheckButton;
+    private final JButton switchStateButton;
+    private final JButton checkButton;
+    private final JButton uncheckButton;
 
     public ControlView(Sudoku sudoku, int width) {
         this.width = width;
         this.height = 50;
 
         switchStateButton = new JButton("Switch State");
-        switchStateButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                sudoku.switchState();
-                sudoku.getView().requestFocusInWindow();
-            }
+        switchStateButton.addActionListener(e -> {
+            sudoku.switchState();
+            sudoku.getView().requestFocusInWindow();
         });
 
         checkButton = new JButton("Check Answer");
-        checkButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                sudoku.checkAll();
-                sudoku.getView().requestFocusInWindow();
-            }
+        checkButton.addActionListener(e -> {
+            sudoku.checkAll();
+            sudoku.getView().requestFocusInWindow();
         });
 
         uncheckButton = new JButton("Stop checking");
-        uncheckButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                sudoku.uncheckAll();
-                sudoku.getView().requestFocusInWindow();
-            }
+        uncheckButton.addActionListener(e -> {
+            sudoku.uncheckAll();
+            sudoku.getView().requestFocusInWindow();
         });
 
         this.add(switchStateButton);

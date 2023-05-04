@@ -16,8 +16,8 @@ public class HelperViewDecorator extends BaseView {
 
     @Override
     public void drawDecoratedCell(Graphics g, int y, int x, Cell cell) {
-        int xpos = SPACING + x * (RECTSIZE + SPACING);
-        int ypos = SPACING + y * (RECTSIZE + SPACING);
+        int xPos = SPACING + x * (RECTSIZE + SPACING);
+        int yPos = SPACING + y * (RECTSIZE + SPACING);
 
         if (cell.getType() != CellType.EMPTY) {
             String text = Integer.toString(cell.getValue());
@@ -41,7 +41,7 @@ public class HelperViewDecorator extends BaseView {
             int textWidth = metrics.stringWidth(text);
             int textHeight = metrics.getHeight();
 
-            g.drawString(text, xpos + (textWidth), ypos + (textHeight));
+            g.drawString(text, xPos + (textWidth), yPos + (textHeight));
         }
     }
 

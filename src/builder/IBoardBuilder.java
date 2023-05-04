@@ -1,7 +1,6 @@
 package builder;
 
 import board.Board;
-import engine.Sudoku;
 
 import java.util.List;
 

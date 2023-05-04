@@ -7,10 +7,10 @@ import java.util.List;
 
 public class NormalBoardBuilder implements IBoardBuilder {
 
-    private int _col;
-    private int _row;
-    private int _boxWidth;
-    private int _boxHeight;
+    private final int _col;
+    private final int _row;
+    private final int _boxWidth;
+    private final int _boxHeight;
     public NormalBoardBuilder(int col, int row, int boxWidth, int boxHeight) {
         _col = col;
         _row = row;

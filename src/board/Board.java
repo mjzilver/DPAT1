@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import observer.Observable;
 
 public class Board implements Observable {
-    private ArrayList<CellHolder> rows = new ArrayList<CellHolder>();
-    private ArrayList<CellHolder> columns = new ArrayList<CellHolder>();
-    private ArrayList<CellHolder> boxes = new ArrayList<CellHolder>();
+    private final ArrayList<CellHolder> rows = new ArrayList<>();
+    private final ArrayList<CellHolder> columns = new ArrayList<>();
+    private final ArrayList<CellHolder> boxes = new ArrayList<>();
 
     private int width = 0;
 

@@ -9,38 +9,29 @@ import board.CellStatus;
 
 public class Visitor {
     public boolean checkBoard(Board board) {
-        boolean returnval = true;
-
-        if (!checkList(board.getBoxes())) {
-            returnval = false;
-        }
-        if(!checkList(board.getColumns())) {
-            returnval = false;
-        }
-        if(!checkList(board.getRows())) {
-            returnval = false;
-        }
-        return returnval;
+        boolean returnvVal = checkList(board.getBoxes());
+        if(!checkList(board.getColumns())) returnvVal = false;
+        if(!checkList(board.getRows())) returnvVal = false;
+        return returnvVal;
     }
 
     public boolean checkList(ArrayList<CellHolder> list) {
-        boolean returnval = true;
+        boolean returnVal = true;
+
         for (CellHolder cellHolder : list) {
-            if (!checkCells(cellHolder)) {
-                returnval = false;
-            }
+            if (!checkCells(cellHolder)) returnVal = false;
         }
-        return returnval;
+        return returnVal;
     }
 
     protected boolean checkCells(CellHolder cellHolder) {
-        boolean returnval = true;
+        boolean returnVal = true;
         boolean[] used = new boolean[9];
         for (Cell cell : cellHolder.getCells()) {
             if (cell.getValue() != 0) {
                 if (used[cell.getValue() - 1]) {
                     cell.setStatus(CellStatus.WRONG);
-                    returnval = false;
+                    returnVal = false;
                 } else {
                     if (cell.getStatus() == CellStatus.UNCHECKED) {
                         cell.setStatus(CellStatus.CORRECT);
@@ -49,14 +40,10 @@ public class Visitor {
                 }
             }
         }
-        return returnval;
+        return returnVal;
     }
 
     public void uncheckBoard(Board board) {
-        for (CellHolder cellHolder : board.getRows()) {
-            for (Cell cell : cellHolder.getCells()) {
-                cell.setStatus(CellStatus.UNCHECKED);
-            }
-        }
+        board.getRows().forEach(cellHolder -> cellHolder.getCells().forEach(cell -> cell.setStatus(CellStatus.UNCHECKED)));
     }
 }
