@@ -20,28 +20,35 @@ public class HelperViewDecorator extends BaseView {
         int yPos = spacing + y * (rectSize + spacing);
 
         if (cell.getType() != CellType.EMPTY) {
-            String text = Integer.toString(cell.getValue());
-            g.setFont(g.getFont().deriveFont(((float) fontSize)));
-            switch (cell.getType()) {
-                case FINAL:
-                    g.setColor(Color.darkGray);
-                    break;
-                case HELPER:
-                    g.setColor(Color.green);
-                    break;
-                case KNOWN:
-                    g.setColor(Color.white);
-                    break;
-                default:
-                    break;
+            if(cell.getType() == CellType.GIVEN) {
+                g.setColor(Color.white);
+            } else {
+                g.setColor(Color.darkGray);
             }
 
-            Font font = new Font("Arial", Font.PLAIN, fontSize);
-            FontMetrics metrics = g.getFontMetrics(font);
-            int textWidth = metrics.stringWidth(text);
-            int textHeight = metrics.getHeight();
+            if (cell.getType() == CellType.HELPER) {
+                String text = cell.getPossibleValues();
+                g.setFont(g.getFont().deriveFont(((float) fontSize / 5)));
 
-            g.drawString(text, xPos + (textWidth), yPos + (textHeight));
+                Font font = new Font("Arial", Font.ITALIC, (fontSize / 5));
+                FontMetrics metrics = g.getFontMetrics(font);
+                int textWidth = metrics.stringWidth(text);
+                int textHeight = metrics.getHeight();
+                g.drawString(text,
+                        xPos + (rectSize / 2) - (textWidth / 2),
+                        yPos + (rectSize / 5) + (textHeight / 4));
+            } else {
+                String text = Integer.toString(cell.getValue());
+                g.setFont(g.getFont().deriveFont(((float) fontSize)));
+
+                Font font = new Font("Arial", Font.PLAIN, fontSize);
+                FontMetrics metrics = g.getFontMetrics(font);
+                int textWidth = metrics.stringWidth(text);
+                int textHeight = metrics.getHeight();
+                g.drawString(text,
+                        xPos + (rectSize / 2) - (textWidth / 2),
+                        yPos + (rectSize / 2) + (textHeight / 4));
+            }
         }
     }
 

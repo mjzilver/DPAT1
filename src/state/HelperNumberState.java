@@ -1,5 +1,6 @@
 package state;
 
+import board.Cell;
 import board.CellType;
 import engine.Sudoku;
 import view.BaseView;
@@ -11,11 +12,18 @@ public class HelperNumberState extends BaseState {
 
     @Override
     protected void handleNumber(int number) {
-        BaseView view = sudoku.getView();
-        
-        // you cant write a helper number over a final number
-        if(sudoku.getBoard().getCell(view.getSelectedCellY(), view.getSelectedCellX()).getType() == CellType.FINAL)
+        if (number == 0) {
             return;
-        sudoku.getBoard().setCell(view.getSelectedCellY(), view.getSelectedCellX(), number, CellType.HELPER);
+        }
+
+        BaseView view = sudoku.getView();
+        Cell cell = sudoku.getBoard().getCell(view.getSelectedCellY(), view.getSelectedCellX());
+
+        if (cell.getType() == CellType.FINAL || cell.getType() == CellType.GIVEN) {
+            return;
+        }
+        cell.addPossibleValue(number);
+        cell.setType(CellType.HELPER);
+        sudoku.getBoard().notifyObservers();
     }
 }

@@ -96,7 +96,7 @@ public class Board implements Observable {
         
         Cell cell = getCell(y, x);
         // You cant edit the given start numbers
-        if(cell.getType() == CellType.KNOWN)
+        if(cell.getType() == CellType.GIVEN)
             return;
 
         if (cell.getValue() == number) {

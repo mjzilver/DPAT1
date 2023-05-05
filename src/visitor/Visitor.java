@@ -6,6 +6,7 @@ import board.Board;
 import board.Cell;
 import board.CellHolder;
 import board.CellStatus;
+import board.CellType;
 
 public class Visitor {
     public boolean checkBoard(Board board) {
@@ -28,7 +29,7 @@ public class Visitor {
         boolean returnVal = true;
         boolean[] used = new boolean[9];
         for (Cell cell : cellHolder.getCells()) {
-            if (cell.getValue() != 0) {
+            if (cell.getValue() != 0 && cell.getType() != CellType.HELPER) {
                 if (used[cell.getValue() - 1]) {
                     cell.setStatus(CellStatus.WRONG);
                     returnVal = false;

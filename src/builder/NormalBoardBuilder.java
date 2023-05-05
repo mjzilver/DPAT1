@@ -26,7 +26,7 @@ public class NormalBoardBuilder implements IBoardBuilder {
         int index = 0;
         for (int y = 0; y < _row; y++) {
             for (int x = 0; x < _col; x++) {
-                board.setCell(y, x, nums.get(index++), CellType.KNOWN);
+                board.setCell(y, x, nums.get(index++), CellType.GIVEN);
             }
         }
 

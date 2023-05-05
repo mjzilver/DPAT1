@@ -1,9 +1,12 @@
 package board;
 
+import java.util.ArrayList;
+
 public class Cell {
     private int value = 0;
     private CellStatus status = CellStatus.UNCHECKED;
     private CellType type = CellType.EMPTY;
+    private ArrayList<Integer> possibleValues = new ArrayList<>();
 
     public CellType getType() {
         return type;
@@ -36,5 +39,28 @@ public class Cell {
 
     public void setStatus(CellStatus status) {
         this.status = status;
+    }
+
+    public void addPossibleValue(int value) {
+        if (possibleValues.contains(value)) {
+            removePossibleValue(value);
+        } else {
+            possibleValues.add(value);
+        }
+    }
+
+    public void removePossibleValue(int value) {
+        possibleValues.remove(Integer.valueOf(value));
+    }
+
+    public String getPossibleValues() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < possibleValues.size(); i++) {
+            sb.append(possibleValues.get(i));
+            if (i != possibleValues.size() - 1) {
+                sb.append(" ");
+            }
+        }
+        return sb.toString();
     }
 }
