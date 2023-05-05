@@ -20,12 +20,11 @@ public class NormalBoardBuilder implements IBoardBuilder {
 
     @Override
     public Board build(List<Integer> nums) {
-
         Board board = new Board(_col, _row, _boxWidth, _boxHeight);
         int index = 0;
         for (int y = 0; y < _row; y++) {
             for (int x = 0; x < _col; x++) {
-                board.setCell(y, x, nums.get(index++), CellType.FINAL);
+                board.setCell(y, x, nums.get(index++), CellType.KNOWN);
             }
         }
 

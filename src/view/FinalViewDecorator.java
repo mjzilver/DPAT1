@@ -19,12 +19,12 @@ public class FinalViewDecorator extends BaseView {
         int xPos = SPACING + x * (RECTSIZE + SPACING);
         int yPos = SPACING + y * (RECTSIZE + SPACING);
 
-        if (cell.getType() == CellType.FINAL) {
+        if (cell.getType() == CellType.FINAL || cell.getType() == CellType.KNOWN) {
             String text = Integer.toString(cell.getValue());
             g.setFont(g.getFont().deriveFont(((float) FONTTSIZE)));
             switch (cell.getType()) {
                 case FINAL:
-                    g.setColor(Color.lightGray);
+                    g.setColor(Color.darkGray);
                     break;
                 case KNOWN:
                     g.setColor(Color.white);

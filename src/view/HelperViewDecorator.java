@@ -24,10 +24,10 @@ public class HelperViewDecorator extends BaseView {
             g.setFont(g.getFont().deriveFont(((float) FONTTSIZE)));
             switch (cell.getType()) {
                 case FINAL:
-                    g.setColor(Color.lightGray);
+                    g.setColor(Color.darkGray);
                     break;
                 case HELPER:
-                    g.setColor(Color.darkGray);
+                    g.setColor(Color.green);
                     break;
                 case KNOWN:
                     g.setColor(Color.white);

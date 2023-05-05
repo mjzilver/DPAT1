@@ -52,6 +52,7 @@ public class BoardFactory implements FileReader {
                 String line = scanner.nextLine();
                 lines.add(line);
             }
+            scanner.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

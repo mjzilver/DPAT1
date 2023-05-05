@@ -87,8 +87,13 @@ public class Board implements Observable {
 
     public void setCell(int y, int x, int number, CellType type) {
         Cell cell = getCell(y, x);
+        // You cant edit the given start numbers
+        if(cell.getType() == CellType.KNOWN)
+            return;
+
         if (cell.getValue() == number) {
             cell.emptyCell();
+            cell.setValue(0);
         } else {
             cell.setValue(number);
             cell.setType(type);

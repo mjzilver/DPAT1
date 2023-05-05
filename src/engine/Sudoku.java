@@ -2,11 +2,9 @@ package engine;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
 
 import board.Board;
 import board.BoardFactory;
-import builder.NormalBoardBuilder;
 import state.BaseState;
 import state.FinalNumberState;
 import state.HelperNumberState;
@@ -22,8 +20,7 @@ public class Sudoku {
 
     public Sudoku() {
         BoardFactory boardFactory = new BoardFactory();
-
-        board = boardFactory.createBoard("puzzle.6x6");
+        board = boardFactory.createBoard("resources/puzzle.6x6");
         view = new FinalViewDecorator(board);
         window = new GameFrame(view);
         state = new FinalNumberState(this);
@@ -68,6 +65,7 @@ public class Sudoku {
     }
 
     public void checkAll() {
+        visitor.uncheckBoard(board);
         visitor.checkBoard(board);
         board.notifyObservers();
     }
