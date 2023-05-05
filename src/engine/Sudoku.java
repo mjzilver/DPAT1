@@ -17,9 +17,9 @@ public class Sudoku {
     BaseView view;
     BaseState state;
     Visitor visitor = new Visitor();
+    BoardFactory boardFactory = new BoardFactory();
 
     public Sudoku() {
-        BoardFactory boardFactory = new BoardFactory();
         board = boardFactory.createBoard("resources/puzzle.4x4");
         view = new FinalViewDecorator(board);
         window = new GameFrame(view);
@@ -73,5 +73,14 @@ public class Sudoku {
     public void uncheckAll() {
         visitor.uncheckBoard(board);
         board.notifyObservers();
+    }
+
+    public void openBoard(String name) {
+        board = boardFactory.createBoard("resources/" + name);
+        state.detach(view);
+        BaseView newView = new FinalViewDecorator(board);
+        window.switchView(view, newView);
+        this.view = newView;
+        state = new FinalNumberState(this);
     }
 }

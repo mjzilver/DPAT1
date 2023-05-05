@@ -4,6 +4,7 @@ import engine.Sudoku;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class ControlView extends JPanel {
     public int width;
@@ -12,6 +13,7 @@ public class ControlView extends JPanel {
     private final JButton switchStateButton;
     private final JButton checkButton;
     private final JButton uncheckButton;
+    private final JButton fileButton;
 
     public ControlView(Sudoku sudoku, int width) {
         this.width = width;
@@ -35,9 +37,24 @@ public class ControlView extends JPanel {
             sudoku.getView().requestFocusInWindow();
         });
 
+        fileButton = new JButton("Select file");
+        fileButton.addActionListener(e -> {
+            JFileChooser chooser = new JFileChooser("resources/");
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            chooser.setAcceptAllFileFilterUsed(true);
+       
+            int result = chooser.showOpenDialog(null);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                // Get the selected file and display its name
+                File selectedFile = chooser.getSelectedFile();
+                sudoku.openBoard(selectedFile.getName());
+            }
+        });
+
         this.add(switchStateButton);
         this.add(checkButton);
         this.add(uncheckButton);
+        this.add(fileButton);
     }
 
     public Dimension getPreferredSize() {
@@ -54,15 +71,19 @@ public class ControlView extends JPanel {
         g.setFont(new Font("Arial", Font.BOLD, 16));
 
         switchStateButton.setBounds(10, 10, 150, 30);
-        switchStateButton.setForeground(Color.BLACK);
-        switchStateButton.setBackground(Color.BLUE);
+        switchStateButton.setForeground(Color.black);
+        switchStateButton.setBackground(Color.blue);
 
         checkButton.setBounds(170, 10, 150, 30);
-        checkButton.setForeground(Color.BLACK);
-        checkButton.setBackground(Color.GREEN);
+        checkButton.setForeground(Color.black);
+        checkButton.setBackground(Color.green);
 
         uncheckButton.setBounds(340, 10, 150, 30);
-        uncheckButton.setForeground(Color.BLACK);
+        uncheckButton.setForeground(Color.black);
         uncheckButton.setBackground(Color.yellow);
+
+        fileButton.setBounds(510, 10, 150, 30);
+        fileButton.setForeground(Color.black);
+        fileButton.setBackground(Color.pink);
     }
 }

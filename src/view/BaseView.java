@@ -36,7 +36,7 @@ public abstract class BaseView extends JPanel implements Observer {
         this.board = board;
         board.attach(this);
 
-        // max 70% of the screeneheight just fixs nicely
+        // max 70% of the screeneheight just fits nicely
         int maxHeight = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.7);
 
         this.rectSize = maxHeight / (board.getHeight() + 1);	
