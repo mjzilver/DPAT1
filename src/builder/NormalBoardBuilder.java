@@ -6,7 +6,6 @@ import board.CellType;
 import java.util.List;
 
 public class NormalBoardBuilder implements IBoardBuilder {
-
     private final int _col;
     private final int _row;
     private final int _boxWidth;

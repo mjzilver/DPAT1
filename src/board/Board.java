@@ -9,12 +9,11 @@ public class Board implements Observable {
     private final ArrayList<CellHolder> columns = new ArrayList<>();
     private final ArrayList<CellHolder> boxes = new ArrayList<>();
 
-    private int width = 0;
-    private int height = 0;
-    private int boxHeight = 0;
-    private int boxWidth = 0;
-
-    private int maxNumber;
+    private final int width;
+    private final int height;
+    private final int boxHeight;
+    private final int boxWidth;
+    private final int maxNumber;
 
     public Board(int width, int height, int boxWidth, int boxHeight, int maxNumber) {
         this.width = width;
@@ -63,16 +62,8 @@ public class Board implements Observable {
         return width;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
     public int getHeight() {
         return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
     
     public int getBoxHeight() {

@@ -25,12 +25,12 @@ public abstract class BaseView extends JPanel implements Observer {
     protected final int spacing;
     protected final int fontSize;
     // for some reason a mouseclick is offset by 20 pixels
-    protected int mouseOffset = 20;
+    protected final static int mouseOffset = 20;
 
     private Board board;
 
-    public int selectedCellX = 0;
-    public int selectedCellY = 0;
+    private int selectedCellX = 0;
+    private int selectedCellY = 0;
 
     public BaseView(Board board) {
         this.board = board;
@@ -125,6 +125,13 @@ public abstract class BaseView extends JPanel implements Observer {
 
     public Dimension getMinimumSize() {
         return getPreferredSize();
+    }
+
+    public int getSelectedCellX() {
+        return selectedCellX;
+    }
+    public int getSelectedCellY() {
+        return selectedCellY;
     }
 
     @Override

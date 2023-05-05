@@ -12,6 +12,6 @@ public class FinalNumberState extends BaseState {
     @Override
     protected void handleNumber(int number) {
         BaseView view = sudoku.getView();
-        sudoku.getBoard().setCell(view.selectedCellY, view.selectedCellX, number, CellType.FINAL);
+        sudoku.getBoard().setCell(view.getSelectedCellY(), view.getSelectedCellX(), number, CellType.FINAL);
     }
 }
