@@ -19,22 +19,31 @@ import observer.Observer;
 public abstract class BaseView extends JPanel implements Observer {
     private static final long serialVersionUID = 1L;
 
-    public final static int HEIGHT = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.8);
-    public final static int WIDTH = HEIGHT;
-    public final static int RECTSIZE = WIDTH / 10;
-    public final static int SPACING = WIDTH / 100;
-    public final static int FONTTSIZE = RECTSIZE / 2;
-    // for some reason a mouseclick is offset
-    public final static int MOUSEOFFSET = 20; 
+    protected final int height;
+    protected final int width;
+    protected final int rectSize;
+    protected final int spacing;
+    protected final int fontSize;
+    // for some reason a mouseclick is offset by 20 pixels
+    protected int mouseOffset = 20; 
 
     private Board board;
 
-    public int selectedCellX = -1;
-    public int selectedCellY = -1;
+    public int selectedCellX = 0;
+    public int selectedCellY = 0;
 
     public BaseView(Board board) {
         this.board = board;
         board.attach(this);
+
+        // max 70% of the screeneheight just fixs nicely
+        int maxHeight = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.7);
+
+        this.rectSize = maxHeight / (board.getHeight() + 1);	
+        this.spacing = maxHeight / ((board.getHeight() + 1) * 10);	
+        this.height = rectSize * (board.getHeight() + 1);
+        this.width = height;
+        this.fontSize = rectSize / 2;
     }
 
     public void paintComponent(Graphics g) {
@@ -51,8 +60,8 @@ public abstract class BaseView extends JPanel implements Observer {
     }
 
     protected void drawCell(Graphics g, int y, int x, Cell cell) {
-        int xpos = SPACING + x * (RECTSIZE + SPACING);
-        int ypos = SPACING + y * (RECTSIZE + SPACING);
+        int xpos = spacing + x * (rectSize + spacing);
+        int ypos = spacing + y * (rectSize + spacing);
 
         switch (cell.getStatus()) {
             case CORRECT:
@@ -69,16 +78,16 @@ public abstract class BaseView extends JPanel implements Observer {
         g.fillRect(
                 xpos,
                 ypos,
-                RECTSIZE,
-                RECTSIZE);
+                rectSize,
+                rectSize);
 
         if (x == selectedCellX && y == selectedCellY) {
             g.setColor(Color.blue);
             g.drawRoundRect(
                     xpos,
                     ypos,
-                    RECTSIZE,
-                    RECTSIZE,
+                    rectSize,
+                    rectSize,
                     10,
                     10);
         }
@@ -89,17 +98,17 @@ public abstract class BaseView extends JPanel implements Observer {
     protected abstract void drawDecoratedCell(Graphics g, int y, int x, Cell cell);
 
     public void handleClick(int y, int x) {
-        y += MOUSEOFFSET; // this is needed
+        y += mouseOffset; // this is needed
         Point mousePoint = new Point(x, y);
         SwingUtilities.convertPointFromScreen(mousePoint, this);
         // round it down to the y, x used by the src.board
-        selectedCellX = (int) Math.floor((mousePoint.x - SPACING) / (double) (RECTSIZE + SPACING));
-        selectedCellY = (int) Math.floor((mousePoint.y - SPACING) / (double) (RECTSIZE + SPACING));
+        selectedCellX = (int) Math.floor((mousePoint.x - spacing) / (double) (rectSize + spacing));
+        selectedCellY = (int) Math.floor((mousePoint.y - spacing) / (double) (rectSize + spacing));
         repaint();
     }
 
     public Dimension getPreferredSize() {
-        return new Dimension(WIDTH, HEIGHT);
+        return new Dimension(width, height);
     }
 
     public Dimension getMinimumSize() {

@@ -20,11 +20,11 @@ public class Sudoku {
 
     public Sudoku() {
         BoardFactory boardFactory = new BoardFactory();
-        board = boardFactory.createBoard("resources/puzzle.6x6");
+        board = boardFactory.createBoard("resources/puzzle.9x9");
         view = new FinalViewDecorator(board);
         window = new GameFrame(view);
         state = new FinalNumberState(this);
-        window.addView(new ControlView(this, BaseView.WIDTH));
+        window.addView(new ControlView(this, view.getWidth()));
         
         window.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {

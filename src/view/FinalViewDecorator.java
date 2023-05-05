@@ -16,12 +16,12 @@ public class FinalViewDecorator extends BaseView {
 
     @Override
     public void drawDecoratedCell(Graphics g, int y, int x, Cell cell) {
-        int xPos = SPACING + x * (RECTSIZE + SPACING);
-        int yPos = SPACING + y * (RECTSIZE + SPACING);
+        int xPos = spacing + x * (rectSize + spacing);
+        int yPos = spacing + y * (rectSize + spacing);
 
         if (cell.getType() == CellType.FINAL || cell.getType() == CellType.KNOWN) {
             String text = Integer.toString(cell.getValue());
-            g.setFont(g.getFont().deriveFont(((float) FONTTSIZE)));
+            g.setFont(g.getFont().deriveFont(((float) fontSize)));
             switch (cell.getType()) {
                 case FINAL:
                     g.setColor(Color.darkGray);
@@ -32,7 +32,7 @@ public class FinalViewDecorator extends BaseView {
                 default:
                     break;
             }
-            Font font = new Font("Arial", Font.PLAIN, FONTTSIZE);
+            Font font = new Font("Arial", Font.PLAIN, fontSize);
             FontMetrics metrics = g.getFontMetrics(font);
             int textWidth = metrics.stringWidth(text);
             int textHeight = metrics.getHeight();
