@@ -10,28 +10,14 @@ public class Board implements Observable {
     private final ArrayList<CellHolder> boxes = new ArrayList<>();
 
     private int width = 0;
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
     private int height = 0;
 
-    public int getHeight() {
-        return height;
-    }
+    private int maxNumber;
 
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public Board(int width, int height, int boxWidth, int boxHeight) {
+    public Board(int width, int height, int boxWidth, int boxHeight, int maxNumber) {
         this.width = width;
         this.height = height;
+        this.maxNumber = maxNumber;
 
         for (int i = 0; i < height; i++) {
             CellHolder row = new CellHolder();
@@ -52,7 +38,7 @@ public class Board implements Observable {
             }
         }
 
-        // filling the boxes 3x3's inside the 9x9
+        // filling the boxes inside the board
         for (int i = 0; i < boxHeight - 1; i++) {
             for (int j = 0; j < boxWidth - 1; j++) {
                 CellHolder box = new CellHolder();
@@ -67,6 +53,22 @@ public class Board implements Observable {
                 }
             }
         }
+    }
+    
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public ArrayList<CellHolder> getBoxes() {
@@ -86,6 +88,9 @@ public class Board implements Observable {
     }
 
     public void setCell(int y, int x, int number, CellType type) {
+        if (number > maxNumber) 
+            return;
+        
         Cell cell = getCell(y, x);
         // You cant edit the given start numbers
         if(cell.getType() == CellType.KNOWN)
