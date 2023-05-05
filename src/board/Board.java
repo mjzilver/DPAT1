@@ -11,6 +11,8 @@ public class Board implements Observable {
 
     private int width = 0;
     private int height = 0;
+    private int boxHeight = 0;
+    private int boxWidth = 0;
 
     private int maxNumber;
 
@@ -18,6 +20,8 @@ public class Board implements Observable {
         this.width = width;
         this.height = height;
         this.maxNumber = maxNumber;
+        this.boxHeight = boxHeight;
+        this.boxWidth = boxWidth;
 
         for (int i = 0; i < height; i++) {
             CellHolder row = new CellHolder();
@@ -69,6 +73,14 @@ public class Board implements Observable {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+    
+    public int getBoxHeight() {
+        return boxHeight;
+    }
+
+    public int getBoxWidth() {
+        return boxWidth;
     }
 
     public ArrayList<CellHolder> getBoxes() {

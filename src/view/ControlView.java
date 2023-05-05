@@ -7,8 +7,8 @@ import java.awt.*;
 import java.io.File;
 
 public class ControlView extends JPanel {
-    public int width;
-    public int height;
+    private int width;
+    private int height;
 
     private final JButton switchStateButton;
     private final JButton checkButton;
@@ -42,7 +42,7 @@ public class ControlView extends JPanel {
             JFileChooser chooser = new JFileChooser("resources/");
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             chooser.setAcceptAllFileFilterUsed(true);
-       
+
             int result = chooser.showOpenDialog(null);
             if (result == JFileChooser.APPROVE_OPTION) {
                 // Get the selected file and display its name

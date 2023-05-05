@@ -3,7 +3,7 @@ package observer;
 import java.util.ArrayList;
 
 public interface Observable {
-    ArrayList<Observer> observers = new ArrayList<>();
+    final ArrayList<Observer> observers = new ArrayList<>();
     
     default void attach(Observer observer) {
         observers.add(observer);

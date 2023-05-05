@@ -12,6 +12,7 @@ public class NormalBoardBuilder implements IBoardBuilder {
     private final int _boxWidth;
     private final int _boxHeight;
     private final int _maxNumber;
+
     public NormalBoardBuilder(int col, int row, int boxWidth, int boxHeight, int maxNumber) {
         _col = col;
         _row = row;

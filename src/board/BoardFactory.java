@@ -9,10 +9,11 @@ import java.util.*;
 
 public class BoardFactory implements FileReader {
     private HashMap<String, IBoardBuilder> _boardBuilders = new HashMap<>();
+
     public BoardFactory() {
-        _boardBuilders.put("9x9", new NormalBoardBuilder(9,9,3,3,9));
-        _boardBuilders.put("6x6", new NormalBoardBuilder(6,6,3,2,6));
-        _boardBuilders.put("4x4", new NormalBoardBuilder(4,4,2,2,4));
+        _boardBuilders.put("9x9", new NormalBoardBuilder(9, 9, 3, 3, 9));
+        _boardBuilders.put("6x6", new NormalBoardBuilder(6, 6, 3, 2, 6));
+        _boardBuilders.put("4x4", new NormalBoardBuilder(4, 4, 2, 2, 4));
     }
 
     public Board createBoard(String fileName) {
@@ -28,7 +29,7 @@ public class BoardFactory implements FileReader {
     public Board createBoard() {
         Board board = new Board(9, 9, 3, 3, 9);
         Random random = new Random();
-        
+
         ArrayList<CellHolder> rows = board.getRows();
         for (int y = 0; y < rows.size(); y++) {
             ArrayList<Cell> cells = board.getRows().get(y).getCells();

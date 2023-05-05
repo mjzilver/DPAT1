@@ -37,7 +37,9 @@ public class FinalViewDecorator extends BaseView {
             int textWidth = metrics.stringWidth(text);
             int textHeight = metrics.getHeight();
 
-            g.drawString(text, xPos + (textWidth), yPos + (textHeight));
+            g.drawString(text,
+                    xPos + (rectSize / 2) - (textWidth / 2),
+                    yPos + (rectSize / 2) + (textHeight / 4));
         }
     }
 

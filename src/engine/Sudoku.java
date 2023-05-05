@@ -12,12 +12,12 @@ import view.*;
 import visitor.Visitor;
 
 public class Sudoku {
-    Board board;
-    GameFrame window;
-    BaseView view;
-    BaseState state;
-    Visitor visitor = new Visitor();
-    BoardFactory boardFactory = new BoardFactory();
+    private Board board;
+    private GameFrame window;
+    private BaseView view;
+    private BaseState state;
+    private Visitor visitor = new Visitor();
+    private BoardFactory boardFactory = new BoardFactory();
 
     public Sudoku() {
         board = boardFactory.createBoard("resources/puzzle.4x4");
@@ -25,19 +25,19 @@ public class Sudoku {
         window = new GameFrame(view);
         state = new FinalNumberState(this);
         window.addView(new ControlView(this, view.getWidth()));
-        
+
         window.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                int x = e.getX(); 
+                int x = e.getX();
                 int y = e.getY();
-                
+
                 view.handleClick(y, x);
             }
         });
     }
 
     public void switchState() {
-        if(state instanceof FinalNumberState) {
+        if (state instanceof FinalNumberState) {
             state.detach(view);
             BaseView newView = new HelperViewDecorator(board);
             window.switchView(view, newView);

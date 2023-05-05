@@ -3,7 +3,7 @@ package board;
 import java.util.ArrayList;
 
 public class CellHolder {
-    ArrayList<Cell> cells = new ArrayList<Cell>();
+    private ArrayList<Cell> cells = new ArrayList<Cell>();
     
     public Cell get(int i) {
         return cells.get(i);

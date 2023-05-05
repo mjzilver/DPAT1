@@ -24,10 +24,6 @@ public abstract class BaseState {
 			public void keyPressed(KeyEvent e) { 
                 if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     System.exit(0);
-				} else if (e.getKeyCode() == KeyEvent.VK_TAB || e.getKeyCode() == KeyEvent.VK_R) {
-                    sudoku.switchState();
-                } else if (e.getKeyCode() == KeyEvent.VK_C) {
-                    sudoku.checkAll();
                 } else if (e.getKeyCode() >= KeyEvent.VK_0 && e.getKeyCode() <= KeyEvent.VK_9) {
                     int number = e.getKeyCode() - KeyEvent.VK_0; 
                     handleNumber(number);

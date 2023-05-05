@@ -25,7 +25,7 @@ public abstract class BaseView extends JPanel implements Observer {
     protected final int spacing;
     protected final int fontSize;
     // for some reason a mouseclick is offset by 20 pixels
-    protected int mouseOffset = 20; 
+    protected int mouseOffset = 20;
 
     private Board board;
 
@@ -39,8 +39,8 @@ public abstract class BaseView extends JPanel implements Observer {
         // max 70% of the screeneheight just fits nicely
         int maxHeight = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.7);
 
-        this.rectSize = maxHeight / (board.getHeight() + 1);	
-        this.spacing = maxHeight / ((board.getHeight() + 1) * 10);	
+        this.rectSize = maxHeight / (board.getHeight() + 1);
+        this.spacing = maxHeight / ((board.getHeight() + 1) * 10);
         this.height = rectSize * (board.getHeight()) + spacing * (board.getHeight() + 1);
         this.width = height;
         this.fontSize = rectSize / 2;
@@ -55,6 +55,18 @@ public abstract class BaseView extends JPanel implements Observer {
             for (int x = 0; x < cells.size(); x++) {
                 Cell currentCell = cells.get(x);
                 drawCell(g, y, x, currentCell);
+            }
+        }
+
+        for (int y = 0; y < board.getHeight() / board.getBoxHeight(); y++) {
+            for (int x = 0; x < board.getWidth() / board.getBoxWidth(); x++) {
+                g.setColor(Color.white);
+
+                g.drawRect(
+                        x * (board.getBoxWidth() * (rectSize + spacing)) + spacing,
+                        y * (board.getBoxHeight() * (rectSize + spacing)) + spacing,
+                        board.getBoxWidth() * (rectSize + spacing) - spacing,
+                        board.getBoxHeight() * (rectSize + spacing) - spacing);
             }
         }
     }
@@ -84,12 +96,12 @@ public abstract class BaseView extends JPanel implements Observer {
         if (x == selectedCellX && y == selectedCellY) {
             g.setColor(Color.blue);
             g.drawRoundRect(
-                    xpos,
-                    ypos,
-                    rectSize,
-                    rectSize,
-                    10,
-                    10);
+                    xpos + (rectSize / 10),
+                    ypos + (rectSize / 10),
+                    (int) (rectSize * 0.8),
+                    (int) (rectSize * 0.8),
+                    (int) (rectSize * 0.8),
+                    (int) (rectSize * 0.8));
         }
 
         drawDecoratedCell(g, y, x, cell);
