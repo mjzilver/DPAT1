@@ -41,7 +41,7 @@ public abstract class BaseView extends JPanel implements Observer {
 
         this.rectSize = maxHeight / (board.getHeight() + 1);	
         this.spacing = maxHeight / ((board.getHeight() + 1) * 10);	
-        this.height = rectSize * (board.getHeight() + 1);
+        this.height = rectSize * (board.getHeight()) + spacing * (board.getHeight() + 1);
         this.width = height;
         this.fontSize = rectSize / 2;
     }

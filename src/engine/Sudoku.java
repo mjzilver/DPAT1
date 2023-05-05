@@ -20,7 +20,7 @@ public class Sudoku {
 
     public Sudoku() {
         BoardFactory boardFactory = new BoardFactory();
-        board = boardFactory.createBoard("resources/puzzle.9x9");
+        board = boardFactory.createBoard("resources/puzzle.4x4");
         view = new FinalViewDecorator(board);
         window = new GameFrame(view);
         state = new FinalNumberState(this);
