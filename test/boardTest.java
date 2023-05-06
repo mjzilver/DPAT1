@@ -1,15 +1,11 @@
 import board.Board;
 import board.BoardFactory;
+import board.CellType;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import java.util.Random;
-
 public class boardTest {
-    // write tests for the builder class
-    Random random = new Random();
-
     @Test
     public void testBoardCreation4x4() {
         BoardFactory boardFactory = new BoardFactory();
@@ -82,4 +78,26 @@ public class boardTest {
         assertEquals(board.getBoxHeight(), 3);
         assertEquals(board.getBoxWidth(), 3);
     }    
+
+    @Test
+    public void testAddingToBoard() {
+        BoardFactory boardFactory = new BoardFactory();
+        Board board = boardFactory.createBoard("puzzle.4x4");
+        // the numbers in puzzle.4x4 -- 0340400210030210
+
+        // try to change a given cell -- this doesnt do anything
+        board.setCell(0, 1, 1, CellType.FINAL);
+        assertEquals(board.getCell(0, 1).getValue(), 3);
+        assertEquals(board.getCell(0, 1).getType(), CellType.GIVEN);
+
+        // try to change a final cell -- this should change
+        board.setCell(0, 0, 1, CellType.FINAL);
+        assertEquals(board.getCell(0, 0).getValue(), 1);
+        assertEquals(board.getCell(0, 0).getType(), CellType.FINAL);
+
+        // enter the same number into the cell -- this should change it to 0
+        board.setCell(0, 0, 1, CellType.FINAL);
+        assertEquals(board.getCell(0, 0).getValue(), 0);
+        assertEquals(board.getCell(0, 0).getType(), CellType.EMPTY);
+    }
 }
