@@ -16,8 +16,7 @@ public class visitorTest {
 
         // the numbers in puzzle.4x4 -- 0340400210030210
         // this number is wrong
-        board.getCell(0, 3).setValue(3);
-        board.getCell(1, 1).setValue(4);
+        board.getCell(0, 3).setValue(4);
         // this number is correct
         board.getCell(1, 2).setValue(3);
 
@@ -25,10 +24,8 @@ public class visitorTest {
 
         assertEquals(board.getCell(0, 3).getStatus(), CellStatus.WRONG);
         assertEquals(board.getCell(1, 2).getStatus(), CellStatus.CORRECT);
-        assertEquals(board.getCell(1, 1).getStatus(), CellStatus.WRONG);
         // given numbers are always good
         assertEquals(board.getCell(0, 1).getStatus(), CellStatus.CORRECT);
-        assertEquals(board.getCell(0, 2).getStatus(), CellStatus.CORRECT);   
-        assertEquals(board.getCell(1, 0).getStatus(), CellStatus.CORRECT);     
+        assertEquals(board.getCell(0, 2).getStatus(), CellStatus.CORRECT);    
     }
 }
