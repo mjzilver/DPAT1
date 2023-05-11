@@ -14,6 +14,7 @@ import javax.swing.SwingUtilities;
 import board.Board;
 import board.Cell;
 import board.CellHolder;
+import board.CellType;
 import observer.Observer;
 
 public abstract class BaseView extends JPanel implements Observer {
@@ -26,6 +27,20 @@ public abstract class BaseView extends JPanel implements Observer {
     protected final int fontSize;
     // for some reason a mouseclick is offset by 20 pixels
     protected final static int mouseOffset = 20;
+
+    int[][] colors = {
+            { 255, 165, 0 }, // orange
+            { 0, 0, 255 }, // blue
+            { 75, 0, 130 }, // indigo
+            { 238, 130, 238 }, // violet
+            { 128, 128, 128 }, // gray
+            { 255, 69, 0 }, // Orange Red
+            { 0, 128, 0 }, // Dark Green
+            { 165, 42, 42 }, // Brown
+            { 70, 130, 180 }, // Steel Blue
+            { 128, 0, 0 }, // Maroon
+            { 192, 192, 192 } // Silver
+    };
 
     private Board board;
 
@@ -48,7 +63,7 @@ public abstract class BaseView extends JPanel implements Observer {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        setBackground(new Color(39, 43, 48));
+        setBackground(Color.BLACK);
         ArrayList<CellHolder> rows = board.getRows();
         for (int y = 0; y < rows.size(); y++) {
             ArrayList<Cell> cells = board.getRows().get(y).getCells();
@@ -57,35 +72,16 @@ public abstract class BaseView extends JPanel implements Observer {
                 drawCell(g, y, x, currentCell);
             }
         }
-
-        for (int y = 0; y < board.getHeight() / board.getBoxHeight(); y++) {
-            for (int x = 0; x < board.getWidth() / board.getBoxWidth(); x++) {
-                g.setColor(Color.white);
-
-                g.drawRect(
-                        x * (board.getBoxWidth() * (rectSize + spacing)) + spacing,
-                        y * (board.getBoxHeight() * (rectSize + spacing)) + spacing,
-                        board.getBoxWidth() * (rectSize + spacing) - spacing,
-                        board.getBoxHeight() * (rectSize + spacing) - spacing);
-            }
-        }
     }
 
     protected void drawCell(Graphics g, int y, int x, Cell cell) {
         int xpos = spacing + x * (rectSize + spacing);
         int ypos = spacing + y * (rectSize + spacing);
 
-        switch (cell.getStatus()) {
-            case CORRECT:
-                g.setColor(Color.green);
-                break;
-            case UNCHECKED:
-                g.setColor(Color.black);
-                break;
-            case WRONG:
-                g.setColor(Color.red);
-                break;
-        }
+        g.setColor(new Color(
+                colors[board.getBoxIndex(y, x)][0],
+                colors[board.getBoxIndex(y, x)][1],
+                colors[board.getBoxIndex(y, x)][2]));
 
         g.fillRect(
                 xpos,
@@ -94,7 +90,7 @@ public abstract class BaseView extends JPanel implements Observer {
                 rectSize);
 
         if (x == selectedCellX && y == selectedCellY) {
-            g.setColor(Color.blue);
+            g.setColor(Color.black);
             g.drawRoundRect(
                     xpos + (rectSize / 10),
                     ypos + (rectSize / 10),
@@ -105,6 +101,51 @@ public abstract class BaseView extends JPanel implements Observer {
         }
 
         drawDecoratedCell(g, y, x, cell);
+
+        if (cell.getType() == CellType.FINAL) {
+            switch (cell.getStatus()) {
+                case CORRECT:
+                    drawCorrect(g, ypos, xpos);
+                    break;
+                case WRONG:
+                    drawWrong(g, ypos, xpos);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void drawCorrect(Graphics g, int ypos, int xpos) {
+        // draw checkmark
+        g.setColor(Color.GREEN);
+
+        g.drawLine(
+                xpos + (rectSize / 10),
+                ypos + (rectSize / 2),
+                xpos + (rectSize / 3),
+                ypos + (int) (rectSize * 0.8));
+        g.drawLine(
+                xpos + (rectSize / 3),
+                ypos + (int) (rectSize * 0.8),
+                xpos + (int) (rectSize * 0.9),
+                ypos + (rectSize / 10));
+    }
+
+    private void drawWrong(Graphics g, int ypos, int xpos) {
+        g.setColor(Color.RED);
+        // draw an X that covers the number
+        g.drawLine(
+                xpos,
+                ypos,
+                xpos + rectSize,
+                ypos + rectSize);
+        g.drawLine(
+                xpos + rectSize,
+                ypos,
+                xpos,
+                ypos + rectSize);
+
     }
 
     protected abstract void drawDecoratedCell(Graphics g, int y, int x, Cell cell);
@@ -114,8 +155,16 @@ public abstract class BaseView extends JPanel implements Observer {
         Point mousePoint = new Point(x, y);
         SwingUtilities.convertPointFromScreen(mousePoint, this);
         // round it down to the y, x used by the src.board
-        selectedCellX = (int) Math.floor((mousePoint.x - spacing) / (double) (rectSize + spacing));
-        selectedCellY = (int) Math.floor((mousePoint.y - spacing) / (double) (rectSize + spacing));
+        int cellX = (int) Math.floor((mousePoint.x - spacing) / (double) (rectSize + spacing));
+        int cellY = (int) Math.floor((mousePoint.y - spacing) / (double) (rectSize + spacing));
+
+        if (cellX < 0 || cellX >= board.getWidth() || cellY < 0 || cellY >= board.getHeight()) {
+            return;
+        }
+
+        this.selectedCellX = cellX;
+        this.selectedCellY = cellY;
+
         repaint();
     }
 
@@ -130,6 +179,7 @@ public abstract class BaseView extends JPanel implements Observer {
     public int getSelectedCellX() {
         return selectedCellX;
     }
+
     public int getSelectedCellY() {
         return selectedCellY;
     }

@@ -51,14 +51,14 @@ public class NormalBoardBuilder implements IBoardBuilder {
         }
 
         // filling the boxes inside the board
-        for (int i = 0; i < _boxHeight - 1; i++) {
-            for (int j = 0; j < _boxWidth - 1; j++) {
+        for (int i = 0; i < _boxHeight; i++) {
+            for (int j = 0; j < _boxWidth; j++) {
                 CellHolder box = new CellHolder();
                 boxes.add(box);
 
-                for (int k = 0; k < _boxHeight - 1; k++) {
+                for (int k = 0; k < _boxHeight; k++) {
                     CellHolder row = rows.get(i * _boxHeight + k);
-                    for (int l = 0; l < _boxWidth - 1; l++) {
+                    for (int l = 0; l < _boxWidth; l++) {
                         Cell cell = row.get(j * _boxWidth + l);
                         box.addCell(cell);
                     }

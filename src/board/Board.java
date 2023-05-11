@@ -72,6 +72,18 @@ public class Board implements Observable {
         this.boxes = boxes;
     }
 
+    public int getBoxIndex(int y, int x) {
+        Cell findCell = getCell(y, x);
+        for (int i = 0; i < boxes.size(); i++) {
+            for (int j = 0; j < boxes.get(i).getCells().size(); j++) {
+                if (boxes.get(i).getCells().get(j) == findCell) {
+                    return i;
+                }
+            }
+        }
+        return 0;
+    }
+
     public Cell getCell(int y, int x) {
         return rows.get(y).get(x);
     }
@@ -92,6 +104,7 @@ public class Board implements Observable {
             cell.setValue(number);
             cell.setType(type);
         }
+        cell.setStatus(CellStatus.UNCHECKED);
         notifyObservers();
     }
 }
