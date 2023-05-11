@@ -1,6 +1,7 @@
 package visitor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import board.Board;
 import board.Cell;
@@ -27,17 +28,22 @@ public class Visitor {
 
     protected boolean checkCells(CellHolder cellHolder) {
         boolean returnVal = true;
-        boolean[] used = new boolean[9];
+        HashMap<Integer, Cell> map = new HashMap<Integer, Cell>();
+
         for (Cell cell : cellHolder.getCells()) {
             if (cell.getValue() != 0 && cell.getType() != CellType.HELPER) {
-                if (used[cell.getValue() - 1]) {
-                    cell.setStatus(CellStatus.WRONG);
+                if (map.containsKey(cell.getValue())) {
+                    if(cell.getType() == CellType.GIVEN) {
+                        map.get(cell.getValue()).setStatus(CellStatus.WRONG);
+                    } else {
+                        cell.setStatus(CellStatus.WRONG);
+                    }
                     returnVal = false;
                 } else {
                     if (cell.getStatus() == CellStatus.UNCHECKED) {
                         cell.setStatus(CellStatus.CORRECT);
                     }
-                    used[cell.getValue() - 1] = true;
+                    map.put(cell.getValue(), cell);
                 }
             }
         }
