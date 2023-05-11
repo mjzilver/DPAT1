@@ -24,7 +24,7 @@ public class NormalBoardBuilder implements IBoardBuilder {
     }
 
     @Override
-    public Board build(List<Integer> nums) {
+    public Board build(List<String> fileContent) {
         Board board = new Board(_col, _row, _boxWidth, _boxHeight, _maxNumber);
 
         ArrayList<CellHolder> rows = new ArrayList<>();
@@ -70,6 +70,13 @@ public class NormalBoardBuilder implements IBoardBuilder {
         board.setRows(rows);
         board.setBoxes(boxes);
 
+        ArrayList<Integer> nums = new ArrayList<>();
+        for (String line : fileContent) {
+            for (int i = 0; i < line.length(); i++) {
+                char c = line.charAt(i);
+                nums.add(Character.getNumericValue(c));
+            }
+        }
         int index = 0;
         for (int y = 0; y < _row; y++) {
             for (int x = 0; x < _col; x++) {

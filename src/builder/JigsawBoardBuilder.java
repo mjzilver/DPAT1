@@ -7,9 +7,9 @@ import board.Board;
 public class JigsawBoardBuilder implements IBoardBuilder {
 
     @Override
-    public Board build(List<Integer> nums) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'build'");
-    }
+    public Board build(List<String> fileContent) {
+        Board board = new Board(0, 0, 0, 0, 0);
 
+        return board;
+    }
 }

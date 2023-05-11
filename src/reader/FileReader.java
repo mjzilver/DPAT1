@@ -3,5 +3,5 @@ package reader;
 import java.util.List;
 
 public interface FileReader {
-    public List<Integer> LoadFile(String fileName);
+    public List<String> LoadFile(String fileName);
 }

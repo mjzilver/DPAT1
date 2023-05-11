@@ -1,9 +1,9 @@
 package builder;
 
-import board.Board;
-
 import java.util.List;
 
+import board.Board;
+
 public interface IBoardBuilder {
-    public Board build(List<Integer> nums);
+    public Board build(List<String> fileContent);
 }

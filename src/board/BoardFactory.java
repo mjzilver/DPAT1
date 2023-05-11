@@ -22,16 +22,16 @@ public class BoardFactory implements FileReader {
 
     public Board createBoard(String fileName) {
         String boardType = fileName.substring(fileName.indexOf(".") + 1);
-        List<Integer> nums = LoadFile(fileName);
+        List<String> fileContent = LoadFile(fileName);
         IBoardBuilder builder = _boardBuilders.get(boardType);
         if (builder == null) {
             throw new RuntimeException("Board type not found");
         }
-        return builder.build(nums);
+        return builder.build(fileContent);
     }
 
     @Override
-    public List<Integer> LoadFile(String fileName) {
+    public List<String> LoadFile(String fileName) {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         InputStream is = classloader.getResourceAsStream(fileName);
 
@@ -47,14 +47,6 @@ public class BoardFactory implements FileReader {
             throw new RuntimeException(e);
         }
 
-        List<Integer> nums = new ArrayList<>();
-        for (String line : lines) {
-            for (int i = 0; i < line.length(); i++) {
-                char c = line.charAt(i);
-                nums.add(Character.getNumericValue(c));
-            }
-        }
-
-        return nums;
+        return lines;
     }
 }
