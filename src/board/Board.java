@@ -23,6 +23,15 @@ public class Board implements Observable {
         this.boxWidth = boxWidth;
     }
     
+    public Board(int width, int height, int maxNumber) {
+        this.width = width;
+        this.height = height;
+        this.maxNumber = maxNumber;
+        // make it work without setting these
+        this.boxHeight = 9;
+        this.boxWidth = 9;
+    }
+
     public int getWidth() {
         return width;
     }
