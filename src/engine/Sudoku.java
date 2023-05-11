@@ -76,7 +76,7 @@ public class Sudoku {
     }
 
     public void openBoard(String name) {
-        board = boardFactory.createBoard("resources/" + name);
+        board = boardFactory.createBoard(name);
         state.detach(view);
         BaseView newView = new FinalViewDecorator(board);
         window.switchView(view, newView);

@@ -10,34 +10,31 @@ public class ControlView extends JPanel {
     private int width;
     private int height;
 
-    private final JButton switchStateButton;
-    private final JButton checkButton;
-    private final JButton uncheckButton;
-    private final JButton fileButton;
+    JButton[] buttons = new JButton[4];
 
     public ControlView(Sudoku sudoku, int width) {
         this.width = width;
         this.height = 50;
 
-        switchStateButton = new JButton("Switch State");
+        JButton switchStateButton = new JButton("Switch State");
         switchStateButton.addActionListener(e -> {
             sudoku.switchState();
             sudoku.getView().requestFocusInWindow();
         });
 
-        checkButton = new JButton("Check Answer");
+        JButton checkButton = new JButton("Check Answer");
         checkButton.addActionListener(e -> {
             sudoku.checkAll();
             sudoku.getView().requestFocusInWindow();
         });
 
-        uncheckButton = new JButton("Stop checking");
+        JButton uncheckButton = new JButton("Stop checking");
         uncheckButton.addActionListener(e -> {
             sudoku.uncheckAll();
             sudoku.getView().requestFocusInWindow();
         });
 
-        fileButton = new JButton("Select file");
+        JButton fileButton = new JButton("Select file");
         fileButton.addActionListener(e -> {
             JFileChooser chooser = new JFileChooser("resources/");
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -45,7 +42,6 @@ public class ControlView extends JPanel {
 
             int result = chooser.showOpenDialog(null);
             if (result == JFileChooser.APPROVE_OPTION) {
-                // Get the selected file and display its name
                 File selectedFile = chooser.getSelectedFile();
                 sudoku.openBoard(selectedFile.getName());
             }
@@ -55,6 +51,11 @@ public class ControlView extends JPanel {
         this.add(checkButton);
         this.add(uncheckButton);
         this.add(fileButton);
+
+        buttons[0] = switchStateButton;
+        buttons[1] = checkButton;
+        buttons[2] = uncheckButton;
+        buttons[3] = fileButton;
     }
 
     public Dimension getPreferredSize() {
@@ -68,22 +69,12 @@ public class ControlView extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.setFont(new Font("Arial", Font.BOLD, 16));
+        g.setFont(new Font("Arial", Font.BOLD, 12));
 
-        switchStateButton.setBounds(10, 10, 150, 30);
-        switchStateButton.setForeground(Color.black);
-        switchStateButton.setBackground(Color.blue);
-
-        checkButton.setBounds(170, 10, 150, 30);
-        checkButton.setForeground(Color.black);
-        checkButton.setBackground(Color.green);
-
-        uncheckButton.setBounds(340, 10, 150, 30);
-        uncheckButton.setForeground(Color.black);
-        uncheckButton.setBackground(Color.yellow);
-
-        fileButton.setBounds(510, 10, 150, 30);
-        fileButton.setForeground(Color.black);
-        fileButton.setBackground(Color.pink);
+        for (JButton button : buttons) {
+            button.setBounds(button.getX(), 10, 120, 30);
+            button.setForeground(Color.black);
+            button.setBackground(Color.blue);
+        }
     }
 }
