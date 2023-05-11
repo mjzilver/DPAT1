@@ -1,8 +1,11 @@
 package builder;
 
 import board.Board;
+import board.Cell;
+import board.CellHolder;
 import board.CellType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NormalBoardBuilder implements IBoardBuilder {
@@ -23,6 +26,50 @@ public class NormalBoardBuilder implements IBoardBuilder {
     @Override
     public Board build(List<Integer> nums) {
         Board board = new Board(_col, _row, _boxWidth, _boxHeight, _maxNumber);
+
+        ArrayList<CellHolder> rows = new ArrayList<>();
+        ArrayList<CellHolder> cols = new ArrayList<>();
+        ArrayList<CellHolder> boxes = new ArrayList<>();
+
+        for (int i = 0; i < _row; i++) {
+            CellHolder row = new CellHolder();
+            rows.add(row);
+
+            for (int j = 0; j < _col; j++) {
+                Cell cell = new Cell(0);
+                row.addCell(cell);
+
+                if (cols.size() <= j) {
+                    CellHolder newColumn = new CellHolder();
+                    cols.add(newColumn);
+                }
+
+                // Add the cell to the column
+                CellHolder currentColumn = cols.get(j);
+                currentColumn.addCell(cell);
+            }
+        }
+
+        // filling the boxes inside the board
+        for (int i = 0; i < _boxHeight - 1; i++) {
+            for (int j = 0; j < _boxWidth - 1; j++) {
+                CellHolder box = new CellHolder();
+                boxes.add(box);
+
+                for (int k = 0; k < _boxHeight - 1; k++) {
+                    CellHolder row = rows.get(i * _boxHeight + k);
+                    for (int l = 0; l < _boxWidth - 1; l++) {
+                        Cell cell = row.get(j * _boxWidth + l);
+                        box.addCell(cell);
+                    }
+                }
+            }
+        }
+
+        board.setColumns(cols);
+        board.setRows(rows);
+        board.setBoxes(boxes);
+
         int index = 0;
         for (int y = 0; y < _row; y++) {
             for (int x = 0; x < _col; x++) {

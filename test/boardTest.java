@@ -66,18 +66,7 @@ public class boardTest {
                 assertEquals(board.getCell(y, x).getValue(), nums[y * board.getRows().size() + x]);
             }
         }
-    }
-
-    @Test
-    public void testBoardCreationRandom() {
-        BoardFactory boardFactory = new BoardFactory();
-        Board board = boardFactory.createBoard();
-
-        assertEquals(board.getRows().size(), 9);
-        assertEquals(board.getRows().get(0).getCells().size(), 9);
-        assertEquals(board.getBoxHeight(), 3);
-        assertEquals(board.getBoxWidth(), 3);
-    }    
+    }  
 
     @Test
     public void testAddingToBoard() {

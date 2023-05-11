@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import org.junit.Before;
 import org.junit.Test;
 import board.Board;
+import board.BoardFactory;
 import board.Cell;
 import board.CellType;
 import view.BaseView;
@@ -17,7 +18,8 @@ public class viewTest {
 
     @Before
     public void setUp() {
-        board = new Board(4, 4, 2, 2, 4);
+        BoardFactory boardFactory = new BoardFactory();
+        board = boardFactory.createBoard("puzzle.4x4");
 
         view = new BaseView(board) {
             private static final long serialVersionUID = 1L;
