@@ -69,6 +69,18 @@ public class boardTest {
     }  
 
     @Test
+    public void testBoardCreationJigsaw() {
+        BoardFactory boardFactory = new BoardFactory();
+        Board board = boardFactory.createBoard("puzzle.jigsaw");
+
+        assertEquals(board.getRows().size(), 9);
+        assertEquals(board.getRows().get(0).getCells().size(), 9);
+
+
+        // add more tests here
+    }
+
+    @Test
     public void testAddingToBoard() {
         BoardFactory boardFactory = new BoardFactory();
         Board board = boardFactory.createBoard("puzzle.4x4");
