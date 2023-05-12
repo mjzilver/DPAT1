@@ -3,13 +3,10 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 import board.Board;
 import board.Cell;
@@ -151,12 +148,11 @@ public abstract class BaseView extends JPanel implements Observer {
     protected abstract void drawDecoratedCell(Graphics g, int y, int x, Cell cell);
 
     public void handleClick(int y, int x) {
-        y += mouseOffset; // this is needed
-        Point mousePoint = new Point(x, y);
-        SwingUtilities.convertPointFromScreen(mousePoint, this);
+        y -= mouseOffset; // this is needed
+
         // round it down to the y, x used by the src.board
-        int cellX = (int) Math.floor((mousePoint.x - spacing) / (double) (rectSize + spacing));
-        int cellY = (int) Math.floor((mousePoint.y - spacing) / (double) (rectSize + spacing));
+        int cellX = (int) Math.floor((x - spacing) / (double) (rectSize + spacing));
+        int cellY = (int) Math.floor((y - spacing) / (double) (rectSize + spacing));
 
         if (cellX < 0 || cellX >= board.getWidth() || cellY < 0 || cellY >= board.getHeight()) {
             return;
