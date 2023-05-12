@@ -24,7 +24,7 @@ public class FinalViewDecorator extends BaseView {
             g.setFont(g.getFont().deriveFont(((float) fontSize)));
             switch (cell.getType()) {
                 case FINAL:
-                    g.setColor(Color.darkGray);
+                    g.setColor(Color.lightGray);
                     break;
                 case GIVEN:
                     g.setColor(Color.white);
@@ -32,7 +32,7 @@ public class FinalViewDecorator extends BaseView {
                 default:
                     break;
             }
-            Font font = new Font("Arial", Font.PLAIN, fontSize);
+            Font font = new Font("Arial", Font.BOLD, fontSize);
             FontMetrics metrics = g.getFontMetrics(font);
             int textWidth = metrics.stringWidth(text);
             int textHeight = metrics.getHeight();

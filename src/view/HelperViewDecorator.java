@@ -23,14 +23,14 @@ public class HelperViewDecorator extends BaseView {
             if(cell.getType() == CellType.GIVEN) {
                 g.setColor(Color.white);
             } else {
-                g.setColor(Color.darkGray);
+                g.setColor(Color.lightGray);
             }
 
             if (cell.getType() == CellType.HELPER) {
                 String text = cell.getPossibleValues();
-                g.setFont(g.getFont().deriveFont(((float) fontSize / 5)));
+                g.setFont(g.getFont().deriveFont(((float) fontSize / 4)));
 
-                Font font = new Font("Arial", Font.ITALIC, (fontSize / 5));
+                Font font = new Font("Arial", Font.ITALIC, (fontSize / 4));
                 FontMetrics metrics = g.getFontMetrics(font);
                 int textWidth = metrics.stringWidth(text);
                 int textHeight = metrics.getHeight();

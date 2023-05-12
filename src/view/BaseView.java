@@ -25,8 +25,7 @@ public abstract class BaseView extends JPanel implements Observer {
     // for some reason a mouseclick is offset by 20 pixels
     protected final static int mouseOffset = 20;
 
-    int[][] colors = {
-            { 255, 165, 0 }, // orange
+    protected final static int[][] colors = {
             { 0, 0, 255 }, // blue
             { 75, 0, 130 }, // indigo
             { 238, 130, 238 }, // violet
