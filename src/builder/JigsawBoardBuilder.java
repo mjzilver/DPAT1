@@ -15,7 +15,7 @@ public class JigsawBoardBuilder implements IBoardBuilder {
 
     @Override
     public Board build(List<String> fileContent) {
-        Board board = new Board(9, 9, 9);
+        Board board = new Board(ROWS, COLS, 9);
 
         ArrayList<CellHolder> rows = new ArrayList<>();
         ArrayList<CellHolder> cols = new ArrayList<>();

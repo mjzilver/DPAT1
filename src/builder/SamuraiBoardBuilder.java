@@ -9,31 +9,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SamuraiBoardBuilder implements IBoardBuilder {
-    /**
-     *
-     */
-    private static final int width = 21;
-    private static final int height = 21;
-    private static final int subWidth = 9;
-    private static final int subHeight = 9;
-    private static final int boxWidth = 3;
+    private static final int WIDTH = 21;
+    private static final int HEIGHT = 21;
+    private static final int BOXWIDTH = 3;
     private static final int boxHeight = 3;
-    private static final int grids = 5;
-    private static final int maxNumber = 9;
 
     @Override
     public Board build(List<String> fileContent) {
-        Board board = new Board(width, height, maxNumber); // 21x21 board with 3x3 boxes
+        Board board = new Board(WIDTH, HEIGHT, 9); // 21x21 board with 3x3 boxes
 
         ArrayList<CellHolder> rows = new ArrayList<>();
         ArrayList<CellHolder> cols = new ArrayList<>();
         ArrayList<CellHolder> boxes = new ArrayList<>();
 
-        for (int i = 0; i < height; i++) {
+        for (int i = 0; i < HEIGHT; i++) {
             CellHolder row = new CellHolder();
             rows.add(row);
 
-            for (int j = 0; j < width; j++) {
+            for (int j = 0; j < WIDTH; j++) {
                 Cell cell = new Cell(0);
                 row.addCell(cell);
 
@@ -49,15 +42,15 @@ public class SamuraiBoardBuilder implements IBoardBuilder {
         }
 
         // filling the boxes inside the board
-        for (int i = 0; i < height / boxHeight; i++) {
-            for (int j = 0; j < width / boxWidth; j++) {
+        for (int i = 0; i < HEIGHT / boxHeight; i++) {
+            for (int j = 0; j < WIDTH / BOXWIDTH; j++) {
                 CellHolder box = new CellHolder();
                 boxes.add(box);
 
                 for (int k = 0; k < boxHeight; k++) {
                     CellHolder row = rows.get(i * boxHeight + k);
-                    for (int l = 0; l < boxWidth; l++) {
-                        Cell cell = row.get(j * boxWidth + l);
+                    for (int l = 0; l < BOXWIDTH; l++) {
+                        Cell cell = row.get(j * BOXWIDTH + l);
                         box.addCell(cell);
                     }
                 }
@@ -80,8 +73,8 @@ public class SamuraiBoardBuilder implements IBoardBuilder {
         int index = 0;
 
         // Fill the main grids
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
+        for (int y = 0; y < HEIGHT; y++) {
+            for (int x = 0; x < WIDTH; x++) {
                 if(index >= nums.size()) {
                     index++;
                     System.out.println(index);

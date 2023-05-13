@@ -9,33 +9,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NormalBoardBuilder implements IBoardBuilder {
-    private final int _col;
-    private final int _row;
-    private final int _boxWidth;
-    private final int _boxHeight;
-    private final int _maxNumber;
+    private final int col;
+    private final int row;
+    private final int boxWidth;
+    private final int boxHeight;
+    private final int maxNumber;
 
     public NormalBoardBuilder(int col, int row, int boxWidth, int boxHeight, int maxNumber) {
-        _col = col;
-        _row = row;
-        _boxWidth = boxWidth;
-        _boxHeight = boxHeight;
-        _maxNumber = maxNumber;
+        this.col = col;
+        this.row = row;
+        this.boxWidth = boxWidth;
+        this.boxHeight = boxHeight;
+        this.maxNumber = maxNumber;
     }
 
     @Override
     public Board build(List<String> fileContent) {
-        Board board = new Board(_col, _row, _boxWidth, _boxHeight, _maxNumber);
+        Board board = new Board(col, row, boxWidth, boxHeight, maxNumber);
 
         ArrayList<CellHolder> rows = new ArrayList<>();
         ArrayList<CellHolder> cols = new ArrayList<>();
         ArrayList<CellHolder> boxes = new ArrayList<>();
 
-        for (int i = 0; i < _row; i++) {
+        for (int i = 0; i < row; i++) {
             CellHolder row = new CellHolder();
             rows.add(row);
 
-            for (int j = 0; j < _col; j++) {
+            for (int j = 0; j < col; j++) {
                 Cell cell = new Cell(0);
                 row.addCell(cell);
 
@@ -51,15 +51,15 @@ public class NormalBoardBuilder implements IBoardBuilder {
         }
 
         // filling the boxes inside the board
-        for (int i = 0; i < _row / _boxHeight; i++) {
-            for (int j = 0; j < _col / _boxWidth; j++) {
+        for (int i = 0; i < row / boxHeight; i++) {
+            for (int j = 0; j < col / boxWidth; j++) {
                 CellHolder box = new CellHolder();
                 boxes.add(box);
 
-                for (int k = 0; k < _boxHeight; k++) {
-                    CellHolder row = rows.get(i * _boxHeight + k);
-                    for (int l = 0; l < _boxWidth; l++) {
-                        Cell cell = row.get(j * _boxWidth + l);
+                for (int k = 0; k < boxHeight; k++) {
+                    CellHolder row = rows.get(i * boxHeight + k);
+                    for (int l = 0; l < boxWidth; l++) {
+                        Cell cell = row.get(j * boxWidth + l);
                         box.addCell(cell);
                     }
                 }
@@ -78,8 +78,8 @@ public class NormalBoardBuilder implements IBoardBuilder {
             }
         }
         int index = 0;
-        for (int y = 0; y < _row; y++) {
-            for (int x = 0; x < _col; x++) {
+        for (int y = 0; y < row; y++) {
+            for (int x = 0; x < col; x++) {
                 board.setCell(y, x, nums.get(index++), CellType.GIVEN);
             }
         }
