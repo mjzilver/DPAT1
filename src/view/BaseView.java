@@ -75,9 +75,9 @@ public abstract class BaseView extends JPanel implements Observer {
         int ypos = spacing + y * (rectSize + spacing);
 
         g.setColor(new Color(
-                colors[board.getBoxIndex(y, x)][0],
-                colors[board.getBoxIndex(y, x)][1],
-                colors[board.getBoxIndex(y, x)][2]));
+                colors[board.getBoxIndex(y, x) % 10][0],
+                colors[board.getBoxIndex(y, x) % 10][1],
+                colors[board.getBoxIndex(y, x) % 10][2]));
 
         g.fillRect(
                 xpos,
