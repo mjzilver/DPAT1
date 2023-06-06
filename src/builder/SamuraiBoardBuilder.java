@@ -11,6 +11,8 @@ import java.util.List;
 public class SamuraiBoardBuilder implements IBoardBuilder {
     private static final int WIDTH = 21;
     private static final int HEIGHT = 21;
+    private static final int SUBWIDTH = 9;
+    private static final int SUBHEIGHT = 9;
     private static final int BOXWIDTH = 3;
     private static final int boxHeight = 3;
 
@@ -62,26 +64,38 @@ public class SamuraiBoardBuilder implements IBoardBuilder {
         board.setBoxes(boxes);
 
         // Fill in the given numbers from the fileContent
-        ArrayList<Integer> nums = new ArrayList<>();
-        for (String line : fileContent) {
-            for (int i = 0; i < line.length(); i++) {
-                char c = line.charAt(i);
-                nums.add(Character.getNumericValue(c));
+        for (int i = 0; i < fileContent.size(); i++) {
+            String line = fileContent.get(i);
+            int xOffset = 0;
+            int yOffset = 0;
+
+            /*
+             * regel 0 = linksboven
+             * regel 1 = rechtsboven
+             * regel 2 = midden
+             * regel 3 = linksonder
+             * regel 4 = rechtsonder
+             */
+            if (i == 1) {
+                xOffset = 12;
+            } else if (i == 2) {
+                yOffset = 6;
+                xOffset = 6;
+            } else if (i == 3) {
+                yOffset = 12;
+            } else if (i == 4) {
+                yOffset = 12;
+                xOffset = 12;
             }
-        }
 
-        int index = 0;
+            for (int j = 0; j < line.length(); j++) {
+                int num = Character.getNumericValue(line.charAt(j));
+                int x = (j % SUBWIDTH) + xOffset;
+                int y = (j / SUBHEIGHT) + yOffset;
 
-        // Fill the main grids
-        for (int y = 0; y < HEIGHT; y++) {
-            for (int x = 0; x < WIDTH; x++) {
-                if(index >= nums.size()) {
-                    index++;
-                    System.out.println(index);
-                    // this is most likely due to the overlapping not being accounted for yet
-                } else  {
-                    board.setCell(y, x, nums.get(index++), CellType.GIVEN);
-                } 
+                if (board.getCell(y, x).getType() == CellType.EMPTY) {
+                    board.setCell(y, x, num, CellType.GIVEN);
+                }
             }
         }
 
