@@ -56,7 +56,7 @@ public class SamuraiBoardBuilder implements IBoardBuilder {
                     int cellY = y + yOffset;
                     int cellX = x + xOffset;
                     Cell cell = board.getCell(cellY, cellX);
-                    
+
                     row.addCell(cell);
 
                     if (cols.size() <= x) {
@@ -73,14 +73,7 @@ public class SamuraiBoardBuilder implements IBoardBuilder {
                     int num = Character.getNumericValue(line.charAt(y * SUBWIDTH + x));
 
                     if (num != 0 && cell.getValue() == 0) {
-
-                        if (cellY == 7 && cellX == 7) {
-                            System.out.println("num: " + num);
-                            System.out.println("cell.getval: " + cell.getValue());
-                            System.out.println((num != 0 && cell.getValue() == 0));
-                        }
-
-                        board.setCell(cellY, cellX, num, CellType.GIVEN);
+                        board.setCell(cellY, cellX, num, CellType.FINAL);
                     } else if (cell.getType() == CellType.INACTIVE) {
                         board.setCell(cellY, cellX, 0, CellType.EMPTY);
                     }

@@ -27,13 +27,13 @@ public abstract class BaseView extends JPanel implements Observer {
             { 0, 0, 255 }, // blue
             { 75, 0, 130 }, // indigo
             { 238, 130, 238 }, // violet
-            { 128, 128, 128 }, // gray
+            { 0, 128, 128 }, // teal
             { 255, 69, 0 }, // Orange Red
             { 0, 128, 0 }, // Dark Green
             { 165, 42, 42 }, // Brown
             { 70, 130, 180 }, // Steel Blue
             { 128, 0, 0 }, // Maroon
-            { 192, 192, 192 } // Silver
+            { 192, 0, 192 } // Purple
     };
 
     private Board board;
