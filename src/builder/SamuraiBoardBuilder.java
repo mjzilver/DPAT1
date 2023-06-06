@@ -53,8 +53,10 @@ public class SamuraiBoardBuilder implements IBoardBuilder {
                 rows.add(row);
 
                 for (int x = 0; x < SUBWIDTH; x++) {
-                    Cell cell = board.getCell(y + yOffset, x + xOffset);
-                    cell.setType(CellType.EMPTY);
+                    int cellY = y + yOffset;
+                    int cellX = x + xOffset;
+                    Cell cell = board.getCell(cellY, cellX);
+                    
                     row.addCell(cell);
 
                     if (cols.size() <= x) {
@@ -65,6 +67,23 @@ public class SamuraiBoardBuilder implements IBoardBuilder {
                     // Add the cell to the column
                     CellHolder currentColumn = cols.get(x);
                     currentColumn.addCell(cell);
+
+                    // Fill in the given numbers from the fileContent
+                    String line = fileContent.get(s);
+                    int num = Character.getNumericValue(line.charAt(y * SUBWIDTH + x));
+
+                    if (num != 0 && cell.getValue() == 0) {
+
+                        if (cellY == 7 && cellX == 7) {
+                            System.out.println("num: " + num);
+                            System.out.println("cell.getval: " + cell.getValue());
+                            System.out.println((num != 0 && cell.getValue() == 0));
+                        }
+
+                        board.setCell(cellY, cellX, num, CellType.GIVEN);
+                    } else if (cell.getType() == CellType.INACTIVE) {
+                        board.setCell(cellY, cellX, 0, CellType.EMPTY);
+                    }
                 }
             }
 
@@ -72,7 +91,7 @@ public class SamuraiBoardBuilder implements IBoardBuilder {
                 for (int x = 0; x < SUBWIDTH / BOXWIDTH; x++) {
                     CellHolder box = new CellHolder();
                     boxes.add(box);
-    
+
                     for (int k = 0; k < BOXHEIGHT; k++) {
                         for (int l = 0; l < BOXWIDTH; l++) {
                             int cellY = (y * BOXHEIGHT + k) + yOffset;
@@ -88,44 +107,6 @@ public class SamuraiBoardBuilder implements IBoardBuilder {
         board.setColumns(cols);
         board.setRows(rows);
         board.setBoxes(boxes);
-
-        // Fill in the given numbers from the fileContent
-        for (int i = 0; i < fileContent.size(); i++) {
-            String line = fileContent.get(i);
-            int xOffset = 0;
-            int yOffset = 0;
-
-            /*
-             * regel 0 = linksboven
-             * regel 1 = rechtsboven
-             * regel 2 = midden
-             * regel 3 = linksonder
-             * regel 4 = rechtsonder
-             */
-            if (i == 1) {
-                xOffset = 12;
-            } else if (i == 2) {
-                yOffset = 6;
-                xOffset = 6;
-            } else if (i == 3) {
-                yOffset = 12;
-            } else if (i == 4) {
-                yOffset = 12;
-                xOffset = 12;
-            }
-
-            for (int j = 0; j < line.length(); j++) {
-                int num = Character.getNumericValue(line.charAt(j));
-                int x = (j % SUBWIDTH) + xOffset;
-                int y = (j / SUBHEIGHT) + yOffset;
-
-                if (num != 0) {
-                    board.setCell(y, x, num, CellType.GIVEN);
-                } else {
-                    board.setCell(y, x, 0, CellType.EMPTY);
-                }
-            }
-        }
 
         return board;
     }
