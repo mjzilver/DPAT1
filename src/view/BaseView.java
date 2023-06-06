@@ -65,7 +65,9 @@ public abstract class BaseView extends JPanel implements Observer {
             ArrayList<Cell> cells = board.getRows().get(y).getCells();
             for (int x = 0; x < cells.size(); x++) {
                 Cell currentCell = cells.get(x);
-                drawCell(g, y, x, currentCell);
+                if(currentCell.getType() != CellType.INACTIVE) {
+                    drawCell(g, y, x, currentCell);
+                }
             }
         }
     }
@@ -78,7 +80,7 @@ public abstract class BaseView extends JPanel implements Observer {
                 colors[board.getBoxIndex(y, x) % 10][0],
                 colors[board.getBoxIndex(y, x) % 10][1],
                 colors[board.getBoxIndex(y, x) % 10][2]));
-
+        
         g.fillRect(
                 xpos,
                 ypos,

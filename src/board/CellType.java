@@ -4,5 +4,6 @@ public enum CellType {
     FINAL,
     HELPER,
     GIVEN,
-    EMPTY
+    EMPTY,
+    INACTIVE
 }

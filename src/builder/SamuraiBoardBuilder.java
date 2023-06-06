@@ -30,6 +30,7 @@ public class SamuraiBoardBuilder implements IBoardBuilder {
 
             for (int j = 0; j < WIDTH; j++) {
                 Cell cell = new Cell(0);
+                cell.setType(CellType.INACTIVE);
                 row.addCell(cell);
 
                 if (cols.size() <= j) {
@@ -93,8 +94,10 @@ public class SamuraiBoardBuilder implements IBoardBuilder {
                 int x = (j % SUBWIDTH) + xOffset;
                 int y = (j / SUBHEIGHT) + yOffset;
 
-                if (board.getCell(y, x).getType() == CellType.EMPTY) {
+                if (num != 0) {
                     board.setCell(y, x, num, CellType.GIVEN);
+                } else {
+                    board.setCell(y, x, 0, CellType.EMPTY);
                 }
             }
         }
