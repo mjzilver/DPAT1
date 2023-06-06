@@ -61,14 +61,12 @@ public class SamuraiBoardBuilder implements IBoardBuilder {
 
                     int colNum = x + (s * SUBWIDTH);
                     if (cols.size() <= colNum) {
-                        System.out.println("Adding column " + colNum);
-                        System.out.println("Size: " + cols.size());
                         CellHolder newColumn = new CellHolder();
                         cols.add(newColumn);
                     }
 
                     // Add the cell to the column
-                    CellHolder currentColumn = cols.get(colNum );
+                    CellHolder currentColumn = cols.get(colNum);
                     currentColumn.addCell(cell);
 
                     // Fill in the given numbers from the fileContent
@@ -76,7 +74,7 @@ public class SamuraiBoardBuilder implements IBoardBuilder {
                     int num = Character.getNumericValue(line.charAt(y * SUBWIDTH + x));
 
                     if (num != 0 && cell.getValue() == 0) {
-                        board.setCell(cellY, cellX, num, CellType.FINAL);
+                        board.setCell(cellY, cellX, num, CellType.GIVEN);
                     } else if (cell.getType() == CellType.INACTIVE) {
                         board.setCell(cellY, cellX, 0, CellType.EMPTY);
                     }

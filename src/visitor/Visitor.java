@@ -11,10 +11,6 @@ import board.CellType;
 
 public class Visitor {
     public boolean checkBoard(Board board) {
-        System.out.println("Checking board");
-        System.out.println(board.getColumns().size());
-
-
         boolean returnvVal = true;
         if (!checkList(board.getBoxes())) returnvVal = false;
         if (!checkList(board.getColumns())) returnvVal = false;
