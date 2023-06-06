@@ -59,13 +59,16 @@ public class SamuraiBoardBuilder implements IBoardBuilder {
 
                     row.addCell(cell);
 
-                    if (cols.size() <= x) {
+                    int colNum = x + (s * SUBWIDTH);
+                    if (cols.size() <= colNum) {
+                        System.out.println("Adding column " + colNum);
+                        System.out.println("Size: " + cols.size());
                         CellHolder newColumn = new CellHolder();
                         cols.add(newColumn);
                     }
 
                     // Add the cell to the column
-                    CellHolder currentColumn = cols.get(x);
+                    CellHolder currentColumn = cols.get(colNum );
                     currentColumn.addCell(cell);
 
                     // Fill in the given numbers from the fileContent

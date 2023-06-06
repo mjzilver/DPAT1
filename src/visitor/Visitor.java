@@ -11,9 +11,14 @@ import board.CellType;
 
 public class Visitor {
     public boolean checkBoard(Board board) {
-        boolean returnvVal = checkList(board.getBoxes());
-        if(!checkList(board.getColumns())) returnvVal = false;
-        if(!checkList(board.getRows())) returnvVal = false;
+        System.out.println("Checking board");
+        System.out.println(board.getColumns().size());
+
+
+        boolean returnvVal = true;
+        if (!checkList(board.getBoxes())) returnvVal = false;
+        if (!checkList(board.getColumns())) returnvVal = false;
+        if (!checkList(board.getRows())) returnvVal = false; 
         return returnvVal;
     }
 
@@ -21,7 +26,8 @@ public class Visitor {
         boolean returnVal = true;
 
         for (CellHolder cellHolder : list) {
-            if (!checkCells(cellHolder)) returnVal = false;
+            if (!checkCells(cellHolder))
+                returnVal = false;
         }
         return returnVal;
     }
@@ -33,7 +39,7 @@ public class Visitor {
         for (Cell cell : cellHolder.getCells()) {
             if (cell.getValue() != 0 && cell.getType() != CellType.HELPER) {
                 if (map.containsKey(cell.getValue())) {
-                    if(cell.getType() == CellType.GIVEN) {
+                    if (cell.getType() == CellType.GIVEN) {
                         map.get(cell.getValue()).setStatus(CellStatus.WRONG);
                     } else {
                         cell.setStatus(CellStatus.WRONG);
@@ -51,6 +57,7 @@ public class Visitor {
     }
 
     public void uncheckBoard(Board board) {
-        board.getRows().forEach(cellHolder -> cellHolder.getCells().forEach(cell -> cell.setStatus(CellStatus.UNCHECKED)));
+        board.getRows()
+                .forEach(cellHolder -> cellHolder.getCells().forEach(cell -> cell.setStatus(CellStatus.UNCHECKED)));
     }
 }
