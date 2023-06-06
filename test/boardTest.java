@@ -88,8 +88,8 @@ public class boardTest {
         BoardFactory boardFactory = new BoardFactory();
         Board board = boardFactory.createBoard("puzzle.samurai");
 
-        assertEquals(board.getRows().size(), 21);
-        assertEquals(board.getRows().get(0).getCells().size(), 21);
+        assertEquals(board.getWidth(), 21);
+        assertEquals(board.getHeight(), 21);
 
         ArrayList<int[]> subboards = new ArrayList<>();
 

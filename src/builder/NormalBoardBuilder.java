@@ -36,7 +36,7 @@ public class NormalBoardBuilder implements IBoardBuilder {
             rows.add(row);
 
             for (int j = 0; j < col; j++) {
-                Cell cell = new Cell(0);
+                Cell cell = board.getCell(i, j);
                 row.addCell(cell);
 
                 if (cols.size() <= j) {

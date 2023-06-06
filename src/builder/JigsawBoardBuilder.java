@@ -26,7 +26,7 @@ public class JigsawBoardBuilder implements IBoardBuilder {
             rows.add(row);
 
             for (int j = 0; j < COLS; j++) {
-                Cell cell = new Cell(0);
+                Cell cell = board.getCell(i, j);
                 row.addCell(cell);
 
                 if (cols.size() <= j) {

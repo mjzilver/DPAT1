@@ -5,12 +5,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import board.Board;
 import board.Cell;
-import board.CellHolder;
 import board.CellType;
 import observer.Observer;
 
@@ -60,11 +58,9 @@ public abstract class BaseView extends JPanel implements Observer {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         setBackground(Color.BLACK);
-        ArrayList<CellHolder> rows = board.getRows();
-        for (int y = 0; y < rows.size(); y++) {
-            ArrayList<Cell> cells = board.getRows().get(y).getCells();
-            for (int x = 0; x < cells.size(); x++) {
-                Cell currentCell = cells.get(x);
+        for (int y = 0; y < board.getHeight(); y++) {
+            for (int x = 0; x < board.getWidth(); x++) {
+                Cell currentCell = board.getCell(y, x);
                 if(currentCell.getType() != CellType.INACTIVE) {
                     drawCell(g, y, x, currentCell);
                 }

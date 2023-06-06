@@ -14,7 +14,8 @@ public class SamuraiBoardBuilder implements IBoardBuilder {
     private static final int SUBWIDTH = 9;
     private static final int SUBHEIGHT = 9;
     private static final int BOXWIDTH = 3;
-    private static final int boxHeight = 3;
+    private static final int BOXHEIGHT = 3;
+    private static final int SUBBOARDS = 5;
 
     @Override
     public Board build(List<String> fileContent) {
@@ -24,37 +25,61 @@ public class SamuraiBoardBuilder implements IBoardBuilder {
         ArrayList<CellHolder> cols = new ArrayList<>();
         ArrayList<CellHolder> boxes = new ArrayList<>();
 
-        for (int i = 0; i < HEIGHT; i++) {
-            CellHolder row = new CellHolder();
-            rows.add(row);
-
-            for (int j = 0; j < WIDTH; j++) {
-                Cell cell = new Cell(0);
+        for (int y = 0; y < HEIGHT; y++) {
+            for (int x = 0; x < WIDTH; x++) {
+                Cell cell = board.getCell(y, x);
                 cell.setType(CellType.INACTIVE);
-                row.addCell(cell);
-
-                if (cols.size() <= j) {
-                    CellHolder newColumn = new CellHolder();
-                    cols.add(newColumn);
-                }
-
-                // Add the cell to the column
-                CellHolder currentColumn = cols.get(j);
-                currentColumn.addCell(cell);
             }
         }
 
-        // filling the boxes inside the board
-        for (int i = 0; i < HEIGHT / boxHeight; i++) {
-            for (int j = 0; j < WIDTH / BOXWIDTH; j++) {
-                CellHolder box = new CellHolder();
-                boxes.add(box);
+        for (int s = 0; s < SUBBOARDS; s++) {
+            int xOffset = 0;
+            int yOffset = 0;
 
-                for (int k = 0; k < boxHeight; k++) {
-                    CellHolder row = rows.get(i * boxHeight + k);
-                    for (int l = 0; l < BOXWIDTH; l++) {
-                        Cell cell = row.get(j * BOXWIDTH + l);
-                        box.addCell(cell);
+            if (s == 1) {
+                xOffset = 12;
+            } else if (s == 2) {
+                yOffset = 6;
+                xOffset = 6;
+            } else if (s == 3) {
+                yOffset = 12;
+            } else if (s == 4) {
+                yOffset = 12;
+                xOffset = 12;
+            }
+
+            for (int y = 0; y < SUBHEIGHT; y++) {
+                CellHolder row = new CellHolder();
+                rows.add(row);
+
+                for (int x = 0; x < SUBWIDTH; x++) {
+                    Cell cell = board.getCell(y + yOffset, x + xOffset);
+                    cell.setType(CellType.EMPTY);
+                    row.addCell(cell);
+
+                    if (cols.size() <= x) {
+                        CellHolder newColumn = new CellHolder();
+                        cols.add(newColumn);
+                    }
+
+                    // Add the cell to the column
+                    CellHolder currentColumn = cols.get(x);
+                    currentColumn.addCell(cell);
+                }
+            }
+
+            for (int y = 0; y < SUBHEIGHT / BOXHEIGHT; y++) {
+                for (int x = 0; x < SUBWIDTH / BOXWIDTH; x++) {
+                    CellHolder box = new CellHolder();
+                    boxes.add(box);
+    
+                    for (int k = 0; k < BOXHEIGHT; k++) {
+                        for (int l = 0; l < BOXWIDTH; l++) {
+                            int cellY = (y * BOXHEIGHT + k) + yOffset;
+                            int cellX = (x * BOXWIDTH + l) + xOffset;
+                            Cell cell = board.getCell(cellY, cellX);
+                            box.addCell(cell);
+                        }
                     }
                 }
             }

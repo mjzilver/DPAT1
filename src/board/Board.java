@@ -8,6 +8,7 @@ public class Board implements Observable {
     private ArrayList<CellHolder> rows = new ArrayList<>();
     private ArrayList<CellHolder> columns = new ArrayList<>();
     private ArrayList<CellHolder> boxes = new ArrayList<>();
+    private Cell[][] cells;
 
     private final int width;
     private final int height;
@@ -21,6 +22,14 @@ public class Board implements Observable {
         this.maxNumber = maxNumber;
         this.boxHeight = boxHeight;
         this.boxWidth = boxWidth;
+
+        cells = new Cell[height][width];
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Cell cell = new Cell(0);
+                cells[y][x] = cell;
+            }
+        }
     }
     
     public Board(int width, int height, int maxNumber) {
@@ -30,6 +39,14 @@ public class Board implements Observable {
         // make it work without setting these
         this.boxHeight = 9;
         this.boxWidth = 9;
+
+        cells = new Cell[height][width];
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Cell cell = new Cell(0);
+                cells[y][x] = cell;
+            }
+        }
     }
 
     public int getWidth() {
@@ -85,7 +102,7 @@ public class Board implements Observable {
     }
 
     public Cell getCell(int y, int x) {
-        return rows.get(y).get(x);
+        return cells[y][x];
     }
 
     public void setCell(int y, int x, int number, CellType type) {
