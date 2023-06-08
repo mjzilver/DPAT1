@@ -1,7 +1,7 @@
 import board.Board;
 import board.BoardFactory;
 import board.CellStatus;
-import visitor.Visitor;
+import visitor.CheckVisitor;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -12,7 +12,7 @@ public class visitorTest {
     public void testVisitor4x4() {
         BoardFactory boardFactory = new BoardFactory();
         Board board = boardFactory.createBoard("puzzle.4x4");
-        Visitor visitor = new Visitor();
+        CheckVisitor visitor = new CheckVisitor();
 
         // the numbers in puzzle.4x4 -- 0340400210030210
         // this number is wrong
@@ -20,7 +20,7 @@ public class visitorTest {
         // this number is correct
         board.getCell(1, 2).setValue(3);
 
-        visitor.checkBoard(board);
+        board.accept(visitor);
 
         assertEquals(board.getCell(0, 3).getStatus(), CellStatus.WRONG);
         assertEquals(board.getCell(1, 2).getStatus(), CellStatus.CORRECT);

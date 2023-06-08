@@ -2,7 +2,10 @@ package board;
 
 import java.util.ArrayList;
 
-public class CellHolder {
+import visitor.BoardElement;
+import visitor.BoardVisitor;
+
+public class CellHolder implements BoardElement {
     private final ArrayList<Cell> cells = new ArrayList<Cell>();
     
     public Cell get(int i) {
@@ -19,6 +22,11 @@ public class CellHolder {
 
     public ArrayList<Cell> getCells() {
         return cells;
+    }
+    
+    @Override
+    public void accept(BoardVisitor visitor) {
+        visitor.visit(this);
     }
 }
 

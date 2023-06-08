@@ -9,14 +9,14 @@ import state.BaseState;
 import state.FinalNumberState;
 import state.HelperNumberState;
 import view.*;
-import visitor.Visitor;
+import visitor.CheckVisitor;
 
 public class Sudoku {
     private Board board;
     private GameFrame window;
     private BaseView view;
     private BaseState state;
-    private Visitor visitor = new Visitor();
+    private CheckVisitor visitor = new CheckVisitor();
     private BoardFactory boardFactory = new BoardFactory();
 
     public Sudoku() {
@@ -65,13 +65,13 @@ public class Sudoku {
     }
 
     public void checkAll() {
-        visitor.uncheckBoard(board);
-        visitor.checkBoard(board);
+        board.uncheckBoard();
+        board.accept(visitor);
         board.notifyObservers();
     }
 
     public void uncheckAll() {
-        visitor.uncheckBoard(board);
+        board.uncheckBoard();
         board.notifyObservers();
     }
 

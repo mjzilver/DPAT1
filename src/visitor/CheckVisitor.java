@@ -9,26 +9,28 @@ import board.CellHolder;
 import board.CellStatus;
 import board.CellType;
 
-public class Visitor {
-    public boolean checkBoard(Board board) {
+public class CheckVisitor implements BoardVisitor {
+    @Override
+    public boolean visit(Board board) {
         boolean returnvVal = true;
-        if (!checkList(board.getBoxes())) returnvVal = false;
-        if (!checkList(board.getColumns())) returnvVal = false;
-        if (!checkList(board.getRows())) returnvVal = false; 
+        if (!visit(board.getBoxes())) returnvVal = false;
+        if (!visit(board.getColumns())) returnvVal = false;
+        if (!visit(board.getRows())) returnvVal = false; 
         return returnvVal;
     }
 
-    public boolean checkList(ArrayList<CellHolder> list) {
+    public boolean visit(ArrayList<CellHolder> list) {
         boolean returnVal = true;
 
         for (CellHolder cellHolder : list) {
-            if (!checkCells(cellHolder))
+            if (!visit(cellHolder))
                 returnVal = false;
         }
         return returnVal;
     }
 
-    protected boolean checkCells(CellHolder cellHolder) {
+    @Override
+    public boolean visit(CellHolder cellHolder) {
         boolean returnVal = true;
         HashMap<Integer, Cell> map = new HashMap<Integer, Cell>();
 
@@ -50,10 +52,5 @@ public class Visitor {
             }
         }
         return returnVal;
-    }
-
-    public void uncheckBoard(Board board) {
-        board.getRows()
-                .forEach(cellHolder -> cellHolder.getCells().forEach(cell -> cell.setStatus(CellStatus.UNCHECKED)));
     }
 }

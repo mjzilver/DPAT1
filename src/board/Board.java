@@ -3,8 +3,10 @@ package board;
 import java.util.ArrayList;
 
 import observer.Observable;
+import visitor.BoardElement;
+import visitor.BoardVisitor;
 
-public class Board implements Observable {
+public class Board implements Observable, BoardElement {
     private ArrayList<CellHolder> rows = new ArrayList<>();
     private ArrayList<CellHolder> columns = new ArrayList<>();
     private ArrayList<CellHolder> boxes = new ArrayList<>();
@@ -123,5 +125,18 @@ public class Board implements Observable {
         }
         cell.setStatus(CellStatus.UNCHECKED);
         notifyObservers();
+    }
+
+    public void uncheckBoard() {
+        for (int y = 0; y < getHeight(); y++) {
+            for (int x = 0; x < getWidth(); x++) {
+                cells[y][x].setStatus(CellStatus.UNCHECKED);
+            }
+        }
+    }
+
+    @Override
+    public void accept(BoardVisitor visitor) {
+        visitor.visit(this);
     }
 }
