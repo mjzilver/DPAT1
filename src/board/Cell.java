@@ -8,16 +8,16 @@ public class Cell {
     private CellType type = CellType.EMPTY;
     private ArrayList<Integer> possibleValues = new ArrayList<>();
 
+    public Cell(int value) {
+        this.value = value;
+    }
+
     public CellType getType() {
         return type;
     }
 
     public void setType(CellType type) {
         this.type = type;
-    }
-
-    public Cell(int value) {
-        this.value = value;
     }
 
     public int getValue() {

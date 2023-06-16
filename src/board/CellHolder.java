@@ -12,10 +12,6 @@ public class CellHolder implements BoardElement {
         return cells.get(i);
     }
 
-    public Cell getCell(int i) {
-        return cells.get(i);
-    }
-
     public void addCell(Cell cell) {
         cells.add(cell);
     }

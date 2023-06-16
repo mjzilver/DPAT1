@@ -54,4 +54,20 @@ public class viewTest {
 
         assertEquals(1, board.getCell(view.getSelectedCellY(), view.getSelectedCellX()).getValue());
     }
+
+    @Test
+    public void testSelectionOutOfBounds() {
+        assertEquals(0, view.getSelectedCellX());
+        assertEquals(0, view.getSelectedCellY());
+
+        // select a cell (using spacing so it doesnt click outside of the cell)
+        view.handleClick(screenWidth + 1, screenWidth + 1);
+        assertEquals(0, view.getSelectedCellX());
+        assertEquals(0, view.getSelectedCellY());
+
+        // select a cell (using spacing so it doesnt click outside of the cell)
+        view.handleClick(-1, -1);
+        assertEquals(0, view.getSelectedCellX());
+        assertEquals(0, view.getSelectedCellY());
+    }    
 }
