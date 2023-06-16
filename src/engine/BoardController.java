@@ -25,13 +25,13 @@ public class BoardController {
     }
 
     public void checkAll() {
-        board.uncheckBoard();
+        board.uncheck();
         board.accept(visitor);
         board.notifyObservers();
     }
 
     public void uncheckAll() {
-        board.uncheckBoard();
+        board.uncheck();
         board.notifyObservers();
     }
 }

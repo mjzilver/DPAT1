@@ -2,11 +2,11 @@ package board;
 
 import java.util.ArrayList;
 
+import board.composite.BoardComponent;
 import observer.Observable;
-import visitor.BoardElement;
 import visitor.BoardVisitor;
 
-public class Board implements Observable, BoardElement {
+public class Board implements Observable, BoardComponent {
     private ArrayList<CellHolder> rows = new ArrayList<>();
     private ArrayList<CellHolder> columns = new ArrayList<>();
     private ArrayList<CellHolder> boxes = new ArrayList<>();
@@ -70,14 +70,6 @@ public class Board implements Observable, BoardElement {
         notifyObservers();
     }
 
-    public void uncheckBoard() {
-        for (int y = 0; y < getHeight(); y++) {
-            for (int x = 0; x < getWidth(); x++) {
-                cells[y][x].setStatus(CellStatus.UNCHECKED);
-            }
-        }
-    }
-
     public int getWidth() {
         return width;
     }
@@ -121,5 +113,19 @@ public class Board implements Observable, BoardElement {
     @Override
     public void accept(BoardVisitor visitor) {
         visitor.visit(this);
+    }
+
+    @Override
+    public void uncheck() {
+        for (CellHolder row : rows) {
+            row.uncheck();
+        }
+    }
+
+    @Override
+    public void debugPrint() {
+        for (CellHolder row : rows) {
+            row.debugPrint();
+        }
     }
 }

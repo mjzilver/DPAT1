@@ -2,10 +2,10 @@ package board;
 
 import java.util.ArrayList;
 
-import visitor.BoardElement;
+import board.composite.BoardComponent;
 import visitor.BoardVisitor;
 
-public class CellHolder implements BoardElement {
+public class CellHolder implements BoardComponent {
     private final ArrayList<Cell> cells = new ArrayList<Cell>();
     
     public Cell get(int i) {
@@ -23,6 +23,21 @@ public class CellHolder implements BoardElement {
     @Override
     public void accept(BoardVisitor visitor) {
         visitor.visit(this);
+    }
+
+    @Override
+    public void uncheck() {
+        for (Cell cell : cells) {
+            cell.uncheck();
+        }
+    }
+
+    @Override
+    public void debugPrint() {
+        for (Cell cell : cells) {
+            cell.debugPrint();
+        }
+        System.out.println();
     }
 }
 

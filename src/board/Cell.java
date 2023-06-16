@@ -2,7 +2,10 @@ package board;
 
 import java.util.ArrayList;
 
-public class Cell {
+import board.composite.BoardComponent;
+import visitor.BoardVisitor;
+
+public class Cell implements BoardComponent{
     private int value = 0;
     private CellStatus status = CellStatus.UNCHECKED;
     private CellType type = CellType.EMPTY;
@@ -63,5 +66,20 @@ public class Cell {
             }
         }
         return sb.toString();
+    }
+
+    @Override
+    public void accept(BoardVisitor visitor) {
+        // nothing here
+    }
+
+    @Override
+    public void uncheck() {
+        setStatus(CellStatus.UNCHECKED);
+    }
+
+    @Override
+    public void debugPrint() {
+        System.out.print(value + " ");
     }
 }
