@@ -19,7 +19,7 @@ public class SamuraiBoardBuilder implements IBoardBuilder {
 
     @Override
     public Board build(List<String> fileContent) {
-        Board board = new Board(WIDTH, HEIGHT, 9); // 21x21 board with 3x3 boxes
+        Board board = new Board(WIDTH, HEIGHT, 9, 9, 9); // 21x21 board with 3x3 boxes
 
         ArrayList<CellHolder> rows = new ArrayList<>();
         ArrayList<CellHolder> cols = new ArrayList<>();
