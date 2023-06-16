@@ -10,20 +10,20 @@ import java.io.InputStream;
 import java.util.*;
 
 public class BoardFactory implements FileReader {
-    private HashMap<String, IBoardBuilder> _boardBuilders = new HashMap<>();
+    private HashMap<String, IBoardBuilder> boardBuilders = new HashMap<>();
 
     public BoardFactory() {
-        _boardBuilders.put("9x9", new NormalBoardBuilder(9, 9, 3, 3, 9));
-        _boardBuilders.put("6x6", new NormalBoardBuilder(6, 6, 3, 2, 6));
-        _boardBuilders.put("4x4", new NormalBoardBuilder(4, 4, 2, 2, 4));
-        _boardBuilders.put("samurai", new SamuraiBoardBuilder());
-        _boardBuilders.put("jigsaw", new JigsawBoardBuilder());
+        boardBuilders.put("9x9", new NormalBoardBuilder(9, 9, 3, 3, 9));
+        boardBuilders.put("6x6", new NormalBoardBuilder(6, 6, 3, 2, 6));
+        boardBuilders.put("4x4", new NormalBoardBuilder(4, 4, 2, 2, 4));
+        boardBuilders.put("samurai", new SamuraiBoardBuilder());
+        boardBuilders.put("jigsaw", new JigsawBoardBuilder());
     }
 
     public Board createBoard(String fileName) {
         String boardType = fileName.substring(fileName.indexOf(".") + 1);
         List<String> fileContent = LoadFile(fileName);
-        IBoardBuilder builder = _boardBuilders.get(boardType);
+        IBoardBuilder builder = boardBuilders.get(boardType);
         if (builder == null) {
             throw new RuntimeException("Board type not found");
         }

@@ -37,19 +37,26 @@ public class GUIController {
     }
 
     public void switchState() {
+        state.detach(view);
+        BaseView newView;
         if (state instanceof FinalNumberState) {
-            state.detach(view);
-            BaseView newView = new HelperViewDecorator(boardController.getBoard());
-            window.switchView(view, newView);
-            this.view = newView;
+            newView = new HelperViewDecorator(boardController.getBoard());
             state = new HelperNumberState(this);
         } else {
-            state.detach(view);
-            BaseView newView = new FinalViewDecorator(boardController.getBoard());
-            window.switchView(view, newView);
-            this.view = newView;
+            newView = new FinalViewDecorator(boardController.getBoard());
             state = new FinalNumberState(this);
         }
+        window.switchView(view, newView);
+        this.view = newView;
+    }
+
+    public void openBoard(String name) {
+        boardController.openBoard(name);
+        state.detach(view);
+        BaseView newView = new FinalViewDecorator(boardController.getBoard());
+        window.switchView(view, newView);
+        this.view = newView;
+        state = new FinalNumberState(this);
     }
 
     public BaseView getView() {
@@ -62,14 +69,5 @@ public class GUIController {
 
     public GameFrame getWindow() {
         return window;
-    }
-
-    public void openBoard(String name) {
-        boardController.openBoard(name);
-        state.detach(view);
-        BaseView newView = new FinalViewDecorator(boardController.getBoard());
-        window.switchView(view, newView);
-        this.view = newView;
-        state = new FinalNumberState(this);
     }
 }
