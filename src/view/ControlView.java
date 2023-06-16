@@ -1,8 +1,9 @@
 package view;
 
-import engine.Sudoku;
-
 import javax.swing.*;
+
+import engine.GUIController;
+
 import java.awt.*;
 import java.io.File;
 
@@ -12,26 +13,26 @@ public class ControlView extends JPanel {
 
     JButton[] buttons = new JButton[4];
 
-    public ControlView(Sudoku sudoku, int width) {
+    public ControlView(GUIController guiController, int width) {
         this.width = width;
         this.height = 50;
 
         JButton switchStateButton = new JButton("Switch State");
         switchStateButton.addActionListener(e -> {
-            sudoku.switchState();
-            sudoku.getView().requestFocusInWindow();
+            guiController.switchState();
+            guiController.getView().requestFocusInWindow();
         });
 
         JButton checkButton = new JButton("Check Answer");
         checkButton.addActionListener(e -> {
-            sudoku.checkAll();
-            sudoku.getView().requestFocusInWindow();
+            guiController.getBoardController().checkAll();
+            guiController.getView().requestFocusInWindow();
         });
 
         JButton uncheckButton = new JButton("Stop checking");
         uncheckButton.addActionListener(e -> {
-            sudoku.uncheckAll();
-            sudoku.getView().requestFocusInWindow();
+            guiController.getBoardController().uncheckAll();
+            guiController.getView().requestFocusInWindow();
         });
 
         JButton fileButton = new JButton("Select file");
@@ -43,7 +44,7 @@ public class ControlView extends JPanel {
             int result = chooser.showOpenDialog(null);
             if (result == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = chooser.getSelectedFile();
-                sudoku.openBoard(selectedFile.getName());
+                guiController.openBoard(selectedFile.getName());
             }
         });
 

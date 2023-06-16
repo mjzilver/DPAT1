@@ -3,27 +3,27 @@ package engine;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import board.Board;
-import board.BoardFactory;
 import state.BaseState;
 import state.FinalNumberState;
 import state.HelperNumberState;
-import view.*;
-import visitor.CheckVisitor;
+import view.BaseView;
+import view.ControlView;
+import view.FinalViewDecorator;
+import view.HelperViewDecorator;
+import view.GameFrame;
 
-public class Sudoku {
-    private Board board;
+public class GUIController {
+    private BoardController boardController;
     private GameFrame window;
     private BaseView view;
     private BaseState state;
-    private CheckVisitor visitor = new CheckVisitor();
-    private BoardFactory boardFactory = new BoardFactory();
 
-    public Sudoku() {
-        board = boardFactory.createBoard("puzzle4solved.samurai");
-        view = new FinalViewDecorator(board);
+    public GUIController() {
+        boardController = new BoardController();
+        view = new FinalViewDecorator(boardController.getBoard());
         window = new GameFrame(view);
         state = new FinalNumberState(this);
+
         window.addView(new ControlView(this, view.getWidth()));
 
         window.addMouseListener(new MouseAdapter() {
@@ -39,13 +39,13 @@ public class Sudoku {
     public void switchState() {
         if (state instanceof FinalNumberState) {
             state.detach(view);
-            BaseView newView = new HelperViewDecorator(board);
+            BaseView newView = new HelperViewDecorator(boardController.getBoard());
             window.switchView(view, newView);
             this.view = newView;
             state = new HelperNumberState(this);
         } else {
             state.detach(view);
-            BaseView newView = new FinalViewDecorator(board);
+            BaseView newView = new FinalViewDecorator(boardController.getBoard());
             window.switchView(view, newView);
             this.view = newView;
             state = new FinalNumberState(this);
@@ -56,29 +56,18 @@ public class Sudoku {
         return view;
     }
 
-    public Board getBoard() {
-        return board;
+    public BoardController getBoardController() {
+        return boardController;
     }
 
     public GameFrame getWindow() {
         return window;
     }
 
-    public void checkAll() {
-        board.uncheckBoard();
-        board.accept(visitor);
-        board.notifyObservers();
-    }
-
-    public void uncheckAll() {
-        board.uncheckBoard();
-        board.notifyObservers();
-    }
-
     public void openBoard(String name) {
-        board = boardFactory.createBoard(name);
+        boardController.openBoard(name);
         state.detach(view);
-        BaseView newView = new FinalViewDecorator(board);
+        BaseView newView = new FinalViewDecorator(boardController.getBoard());
         window.switchView(view, newView);
         this.view = newView;
         state = new FinalNumberState(this);

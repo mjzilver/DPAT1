@@ -3,16 +3,16 @@ package state;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import engine.Sudoku;
+import engine.GUIController;
 import view.BaseView;
 
 public abstract class BaseState {
-    protected Sudoku sudoku;
+    protected GUIController guiController;
     protected KeyAdapter keyAdapter; 
 
-    BaseState(Sudoku sudoku) {
-        this.sudoku = sudoku;
-        BaseView view = sudoku.getView();
+    BaseState(GUIController guiController) {
+        this.guiController = guiController;
+        BaseView view = guiController.getView();
         view.addKeyListener(makeKeyAdapter());
         view.requestFocusInWindow(); 
     }

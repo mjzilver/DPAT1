@@ -1,17 +1,17 @@
 package state;
 
 import board.CellType;
-import engine.Sudoku;
+import engine.GUIController;
 import view.BaseView;
 
 public class FinalNumberState extends BaseState {
-    public FinalNumberState(Sudoku sudoku) {
-        super(sudoku);
+    public FinalNumberState(GUIController guiController) {
+        super(guiController);
     }
 
     @Override
     protected void handleNumber(int number) {
-        BaseView view = sudoku.getView();
-        sudoku.getBoard().setCell(view.getSelectedCellY(), view.getSelectedCellX(), number, CellType.FINAL);
+        BaseView view = guiController.getView();
+        guiController.getBoardController().getBoard().setCell(view.getSelectedCellY(), view.getSelectedCellX(), number, CellType.FINAL);
     }
 }
