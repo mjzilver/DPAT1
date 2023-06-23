@@ -32,11 +32,14 @@ public class CheckVisitor implements BoardVisitor {
     @Override
     public boolean visit(CellHolder cellHolder) {
         boolean returnVal = true;
+        // puts all the cells in a hashmap with the value as the key
         HashMap<Integer, Cell> map = new HashMap<Integer, Cell>();
 
         for (Cell cell : cellHolder.getCells()) {
             if (cell.getValue() != 0 && cell.getType() != CellType.HELPER) {
+                // if the value is already in the hashmap
                 if (map.containsKey(cell.getValue())) {
+                    // if the cell is a given cell, then the other cell is wrong
                     if (cell.getType() == CellType.GIVEN) {
                         map.get(cell.getValue()).setStatus(CellStatus.WRONG);
                     } else {

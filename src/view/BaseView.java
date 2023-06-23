@@ -158,6 +158,8 @@ public abstract class BaseView extends JPanel implements Observer {
         this.selectedCellX = cellX;
         this.selectedCellY = cellY;
 
+        board.selectedCell(cellY, cellX);
+
         repaint();
     }
 

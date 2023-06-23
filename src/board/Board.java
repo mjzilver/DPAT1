@@ -11,6 +11,7 @@ public class Board implements Observable, BoardComponent {
     private ArrayList<CellHolder> columns = new ArrayList<>();
     private ArrayList<CellHolder> boxes = new ArrayList<>();
     private Cell[][] cells;
+    private Cell selectedCell = null;
 
     private final int width;
     private final int height;
@@ -51,10 +52,18 @@ public class Board implements Observable, BoardComponent {
     }
 
     public void setCell(int y, int x, int number, CellType type) {
+        setCell(getCell(y, x), number, type);
+    }
+
+    public void setSelectedCell(int number, CellType type) {
+        if(getSelectedCell() != null)
+            setCell(getSelectedCell(), number, type);
+    }
+
+    public void setCell(Cell cell, int number, CellType type) {
         if (number > maxNumber)
             return;
 
-        Cell cell = getCell(y, x);
         // You cant edit the given start numbers
         if (cell.getType() == CellType.GIVEN)
             return;
@@ -127,5 +136,13 @@ public class Board implements Observable, BoardComponent {
         for (CellHolder row : rows) {
             row.debugPrint();
         }
+    }
+
+    public void selectedCell(int cellY, int cellX) {
+        selectedCell = getCell(cellY, cellX);
+    }
+    
+    public Cell getSelectedCell() {
+        return selectedCell;
     }
 }

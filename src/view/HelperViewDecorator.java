@@ -20,11 +20,7 @@ public class HelperViewDecorator extends BaseView {
         int yPos = spacing + y * (rectSize + spacing);
 
         if (cell.getType() != CellType.EMPTY) {
-            if(cell.getType() == CellType.GIVEN) {
-                g.setColor(Color.white);
-            } else {
-                g.setColor(Color.lightGray);
-            }
+            g.setColor(Color.white);
 
             if (cell.getType() == CellType.HELPER) {
                 String text = cell.getPossibleValues();

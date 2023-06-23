@@ -1,9 +1,9 @@
 package state;
 
+import board.Board;
 import board.Cell;
 import board.CellType;
 import engine.GUIController;
-import view.BaseView;
 
 public class HelperNumberState extends BaseState {
     public HelperNumberState(GUIController guiController) {
@@ -16,14 +16,15 @@ public class HelperNumberState extends BaseState {
             return;
         }
 
-        BaseView view = guiController.getView();
-        Cell cell = guiController.getBoardController().getBoard().getCell(view.getSelectedCellY(), view.getSelectedCellX());
+        Board board = guiController.getBoardController().getBoard();
+        Cell cell = board.getSelectedCell();
 
         if (cell.getType() == CellType.FINAL || cell.getType() == CellType.GIVEN) {
             return;
         }
         cell.addPossibleValue(number);
         cell.setType(CellType.HELPER);
-        guiController.getBoardController().getBoard().notifyObservers();
+        System.out.println(cell.getPossibleValues());
+        board.notifyObservers();
     }
 }
