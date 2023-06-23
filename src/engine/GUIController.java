@@ -48,6 +48,7 @@ public class GUIController {
         }
         window.switchView(view, newView);
         this.view = newView;
+        state.attach(view);
     }
 
     public void openBoard(String name) {
