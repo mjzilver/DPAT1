@@ -1,4 +1,6 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.awt.Graphics;
 import java.lang.reflect.Field;
 
@@ -36,7 +38,8 @@ public class viewTest {
             field2.setAccessible(true);
             spacing = (int) field2.get(view);
         } catch (Exception e) {
-            e.printStackTrace();
+            // test failed if exception is thrown
+            assertTrue(false);
         }
     }
 

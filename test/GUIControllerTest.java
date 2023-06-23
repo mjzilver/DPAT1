@@ -32,7 +32,8 @@ public class GUIControllerTest {
             state = (BaseState) field.get(guiController);
             assertTrue(state instanceof FinalNumberState);
         } catch (Exception e) {
-            e.printStackTrace();
+            // test failed if exception is thrown
+            assertTrue(false);
         }
     }
 
