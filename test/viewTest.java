@@ -54,7 +54,7 @@ public class viewTest {
 
         assertEquals(1, board.getCell(view.getSelectedCellY(), view.getSelectedCellX()).getValue());
 
-        board.selectedCell(2, 2);
+        board.selectCell(2, 2);
         board.setSelectedCell(2, CellType.GIVEN);
 
         assertEquals(2, board.getSelectedCell().getValue());

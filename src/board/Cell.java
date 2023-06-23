@@ -61,10 +61,8 @@ public class Cell implements BoardComponent{
         possibleValues.sort(Integer::compareTo);
         for (int i = 0; i < possibleValues.size(); i++) {
             sb.append(possibleValues.get(i));
-            if (i != possibleValues.size() - 1) {
-                sb.append(" ");
-            }
-        }
+        }                
+
         return sb.toString();
     }
 

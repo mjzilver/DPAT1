@@ -55,6 +55,6 @@ public class cellTest {
         cell.addPossibleValue(3); // add
         cell.addPossibleValue(1); // remove
 
-        assertEquals(cell.getPossibleValues(), "3 4 5");
+        assertEquals(cell.getPossibleValues(), "345");
     }
 }

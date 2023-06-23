@@ -138,7 +138,7 @@ public class Board implements Observable, BoardComponent {
         }
     }
 
-    public void selectedCell(int cellY, int cellX) {
+    public void selectCell(int cellY, int cellX) {
         selectedCell = getCell(cellY, cellX);
     }
     

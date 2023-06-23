@@ -24,7 +24,6 @@ public class HelperNumberState extends BaseState {
         }
         cell.addPossibleValue(number);
         cell.setType(CellType.HELPER);
-        System.out.println(cell.getPossibleValues());
         board.notifyObservers();
     }
 }

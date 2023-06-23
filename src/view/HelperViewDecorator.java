@@ -16,23 +16,38 @@ public class HelperViewDecorator extends BaseView {
 
     @Override
     public void drawDecoratedCell(Graphics g, int y, int x, Cell cell) {
-        int xPos = spacing + x * (rectSize + spacing);
-        int yPos = spacing + y * (rectSize + spacing);
+        final int xPos = spacing + x * (rectSize + spacing);
+        final int yPos = spacing + y * (rectSize + spacing);
 
         if (cell.getType() != CellType.EMPTY) {
             g.setColor(Color.white);
 
             if (cell.getType() == CellType.HELPER) {
                 String text = cell.getPossibleValues();
-                g.setFont(g.getFont().deriveFont(((float) fontSize / 4)));
+                g.setFont(g.getFont().deriveFont(((float) fontSize / 2)));
 
-                Font font = new Font("Arial", Font.ITALIC, (fontSize / 4));
-                FontMetrics metrics = g.getFontMetrics(font);
+                FontMetrics metrics = g.getFontMetrics(g.getFont());
                 int textWidth = metrics.stringWidth(text);
                 int textHeight = metrics.getHeight();
-                g.drawString(text,
-                        xPos + (rectSize / 2) - (textWidth / 2),
-                        yPos + (rectSize / 5) + (textHeight / 4));
+
+                // split text in two lines if it is too long
+                // then draw both lines
+                if (text.length() > 5) {
+                    int midpoint = text.length() / 2;
+                    String firstLine = text.substring(0, midpoint);
+                    String secondLine = text.substring(midpoint);
+
+                    g.drawString(firstLine,
+                            xPos + (rectSize / 2) - (textWidth / 4),
+                            yPos + (rectSize / 2) + (textHeight / 4) - textHeight);
+                    g.drawString(secondLine,
+                            xPos + (rectSize / 2) - (textWidth / 4),
+                            yPos + (rectSize / 2) + (textHeight / 4));
+                } else {
+                    g.drawString(text,
+                            xPos + (rectSize / 2) - (textWidth / 2),
+                            yPos + (rectSize / 2) + (textHeight / 4));
+                }
             } else {
                 String text = Integer.toString(cell.getValue());
                 g.setFont(g.getFont().deriveFont(((float) fontSize)));
