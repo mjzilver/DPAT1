@@ -25,7 +25,9 @@ public class ViewTest {
 
         view = new BaseView(board) {
             private static final long serialVersionUID = 1L;
+
             public void drawCell(Graphics g, int y, int x, Cell cell) {}
+
             protected void drawDecoratedCell(Graphics g, int y, int x, Cell cell) {}
         };
 
@@ -45,37 +47,30 @@ public class ViewTest {
 
     @Test
     public void testSelection() {
-        assertEquals(0, view.getSelectedCellX());
-        assertEquals(0, view.getSelectedCellY());
+        assertEquals(board.getCell(0, 0), board.getSelectedCell());
 
         // select a cell (using spacing so it doesnt click outside of the cell)
         view.handleClick(screenWidth - (spacing * 2), screenWidth - (spacing * 2));
-        assertEquals(3, view.getSelectedCellX());
-        assertEquals(3, view.getSelectedCellY());
+        assertEquals(board.getCell(3, 3), board.getSelectedCell());
 
-        board.setCell(view.getSelectedCellY(), view.getSelectedCellX(), 1, CellType.FINAL);
-
-        assertEquals(1, board.getCell(view.getSelectedCellY(), view.getSelectedCellX()).getValue());
+        board.setSelectedCell(1, CellType.FINAL);
+        assertEquals(1, board.getSelectedCell().getValue());
 
         board.selectCell(2, 2);
         board.setSelectedCell(2, CellType.GIVEN);
-
         assertEquals(2, board.getSelectedCell().getValue());
     }
 
     @Test
     public void testSelectionOutOfBounds() {
-        assertEquals(0, view.getSelectedCellX());
-        assertEquals(0, view.getSelectedCellY());
+        assertEquals(board.getCell(0, 0), board.getSelectedCell());
 
         // select a cell (using spacing so it doesnt click outside of the cell)
         view.handleClick(screenWidth + 1, screenWidth + 1);
-        assertEquals(0, view.getSelectedCellX());
-        assertEquals(0, view.getSelectedCellY());
+        assertEquals(board.getCell(0, 0), board.getSelectedCell());
 
         // select a cell (using spacing so it doesnt click outside of the cell)
         view.handleClick(-1, -1);
-        assertEquals(0, view.getSelectedCellX());
-        assertEquals(0, view.getSelectedCellY());
-    }    
+        assertEquals(board.getCell(0, 0), board.getSelectedCell());
+    }
 }

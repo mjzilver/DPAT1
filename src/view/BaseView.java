@@ -38,9 +38,6 @@ public abstract class BaseView extends JPanel implements Observer {
 
     private Board board;
 
-    private int selectedCellX = 0;
-    private int selectedCellY = 0;
-
     public BaseView(Board board) {
         this.board = board;
         board.attach(this);
@@ -84,7 +81,7 @@ public abstract class BaseView extends JPanel implements Observer {
                 rectSize,
                 rectSize);
 
-        if (x == selectedCellX && y == selectedCellY) {
+        if (cell == board.getSelectedCell()) {
             g.setColor(Color.black);
             g.drawRoundRect(
                     xpos + (rectSize / 10),
@@ -156,9 +153,6 @@ public abstract class BaseView extends JPanel implements Observer {
             return;
         }
 
-        this.selectedCellX = cellX;
-        this.selectedCellY = cellY;
-
         board.selectCell(cellY, cellX);
 
         repaint();
@@ -170,14 +164,6 @@ public abstract class BaseView extends JPanel implements Observer {
 
     public Dimension getMinimumSize() {
         return getPreferredSize();
-    }
-
-    public int getSelectedCellX() {
-        return selectedCellX;
-    }
-
-    public int getSelectedCellY() {
-        return selectedCellY;
     }
 
     @Override
