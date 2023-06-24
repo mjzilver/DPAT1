@@ -41,7 +41,6 @@ public abstract class BaseView extends JPanel implements Observer {
     public BaseView(Board board) {
         this.board = board;
         board.attach(this);
-        board.selectCell(0, 0);
 
         // max 70% of the screeneheight just fits nicely
         int maxHeight = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.7);
@@ -59,7 +58,7 @@ public abstract class BaseView extends JPanel implements Observer {
         for (int y = 0; y < board.getHeight(); y++) {
             for (int x = 0; x < board.getWidth(); x++) {
                 Cell currentCell = board.getCell(y, x);
-                if(currentCell.getType() != CellType.INACTIVE) {
+                if (currentCell.getType() != CellType.INACTIVE) {
                     drawCell(g, y, x, currentCell);
                 }
             }
@@ -74,7 +73,7 @@ public abstract class BaseView extends JPanel implements Observer {
                 colors[board.getBoxIndex(y, x) % 10][0],
                 colors[board.getBoxIndex(y, x) % 10][1],
                 colors[board.getBoxIndex(y, x) % 10][2]));
-        
+
         g.fillRect(
                 xpos,
                 ypos,
@@ -145,7 +144,7 @@ public abstract class BaseView extends JPanel implements Observer {
     public void handleClick(int y, int x) {
         y -= mouseOffset; // this is needed
 
-        // round it down to the y, x used by the src.board
+        // round it down to the y, x used by the board
         int cellX = (int) Math.floor((x - spacing) / (double) (rectSize + spacing));
         int cellY = (int) Math.floor((y - spacing) / (double) (rectSize + spacing));
 

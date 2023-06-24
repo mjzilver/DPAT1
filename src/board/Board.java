@@ -33,6 +33,7 @@ public class Board implements Observable, BoardComponent {
                 cells[y][x] = cell;
             }
         }
+        selectCell(0, 0);
     }
 
     public int getBoxIndex(int y, int x) {
