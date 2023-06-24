@@ -17,13 +17,13 @@ public class HelperNumberState extends BaseState {
         }
 
         Board board = guiController.getBoardController().getBoard();
-        Cell cell = board.getSelectedCell();
+        Cell selectedCell = board.getSelectedCell();
 
-        if (cell.getType() == CellType.FINAL || cell.getType() == CellType.GIVEN) {
+        if (selectedCell.getType() == CellType.FINAL || selectedCell.getType() == CellType.GIVEN) {
             return;
         }
-        cell.addPossibleValue(number);
-        cell.setType(CellType.HELPER);
+        selectedCell.addPossibleValue(number);
+        selectedCell.setType(CellType.HELPER);
         board.notifyObservers();
     }
 }

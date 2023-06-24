@@ -17,6 +17,7 @@ public class GUIController {
     private GameFrame window;
     private BaseView view;
     private BaseState state;
+    private ControlView controlView;
 
     public GUIController() {
         boardController = new BoardController();
@@ -24,7 +25,8 @@ public class GUIController {
         window = new GameFrame(view);
         state = new FinalNumberState(this);
 
-        window.addView(new ControlView(this, view.getWidth()));
+        controlView = new ControlView(this, view.getWidth());
+        window.addView(controlView);
 
         window.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -47,7 +49,7 @@ public class GUIController {
             state = new FinalNumberState(this);
         }
         window.switchView(view, newView);
-        this.view = newView;
+        view = newView;
         state.attach(view);
     }
 
@@ -56,7 +58,7 @@ public class GUIController {
         state.detach(view);
         BaseView newView = new FinalViewDecorator(boardController.getBoard());
         window.switchView(view, newView);
-        this.view = newView;
+        view = newView;
         state = new FinalNumberState(this);
     }
 

@@ -13,7 +13,7 @@ public class BoardController {
     public BoardController() {
         boardFactory = new BoardFactory();
         visitor = new CheckVisitor();
-        openBoard("puzzle4.samurai");
+        openBoard("puzzle.4x4");
     }
 
     public void openBoard(String name) {

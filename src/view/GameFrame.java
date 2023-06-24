@@ -13,6 +13,7 @@ public class GameFrame extends JFrame {
 		this.getContentPane().add(view);
 		this.setResizable(false);
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
+		this.setSize(view.getWidth(), view.getHeight());
 		this.pack();
 		this.setVisible(true);
 	}
@@ -21,6 +22,7 @@ public class GameFrame extends JFrame {
 		this.getContentPane().remove(oldView);
 		this.getContentPane().add(newView, 0);
 		this.setTitle(newView.getTitle());
+		this.setSize(newView.getWidth(), newView.getHeight());
 		this.pack();
 		this.setVisible(true);
 		this.repaint();

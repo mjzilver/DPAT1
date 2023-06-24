@@ -42,13 +42,13 @@ public abstract class BaseView extends JPanel implements Observer {
         this.board = board;
         board.attach(this);
 
-        // max 70% of the screeneheight just fits nicely
-        int maxHeight = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.7);
+        // max 70% of the screenheight just fits nicely
+        int maxHeight = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.8);
 
         this.rectSize = maxHeight / (board.getHeight() + 1);
         this.spacing = maxHeight / ((board.getHeight() + 1) * 10);
         this.height = rectSize * (board.getHeight()) + spacing * (board.getHeight() + 1);
-        this.width = height;
+        this.width = rectSize * (board.getWidth()) + spacing * (board.getWidth() + 1);
         this.fontSize = rectSize / 2;
     }
 
