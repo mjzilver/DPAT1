@@ -5,7 +5,7 @@ import visitor.CheckVisitor;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class visitorTest {
+public class VisitorTest {
 
     @Test
     // Test the visitor on a 4x4 board

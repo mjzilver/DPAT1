@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-public class boardTest {
+public class BoardTest {
     @Test
     public void testBoardCreation4x4() {
         BoardFactory boardFactory = new BoardFactory();

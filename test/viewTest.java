@@ -12,7 +12,7 @@ import board.Cell;
 import board.CellType;
 import view.BaseView;
 
-public class viewTest {
+public class ViewTest {
     private BaseView view;
     private Board board;
     private int screenWidth;

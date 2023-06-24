@@ -4,7 +4,7 @@ import observer.Observer;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class observerTest {
+public class ObserverTest {
     private class mockObservable implements Observable {}
 
     private class mockObserver implements Observer {

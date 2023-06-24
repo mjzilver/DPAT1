@@ -32,8 +32,8 @@ public class HelperViewDecorator extends BaseView {
 
                 // split text in two lines if it is too long
                 // then draw both lines
-                if (text.length() > 5) {
-                    int midpoint = text.length() / 2;
+                if (text.length() > 4) {
+                    int midpoint = Math.max(text.length() / 2, 4);
                     String firstLine = text.substring(0, midpoint);
                     String secondLine = text.substring(midpoint);
 
@@ -46,7 +46,7 @@ public class HelperViewDecorator extends BaseView {
                 } else {
                     g.drawString(text,
                             xPos + (rectSize / 2) - (textWidth / 2),
-                            yPos + (rectSize / 2) + (textHeight / 4));
+                            yPos + (rectSize / 2) + (textHeight / 4) - textHeight);
                 }
             } else {
                 String text = Integer.toString(cell.getValue());

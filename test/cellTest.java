@@ -5,7 +5,7 @@ import board.CellType;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class cellTest {
+public class CellTest {
     @Test
     public void testCellCreation() {
         Cell cell = new Cell(0);
