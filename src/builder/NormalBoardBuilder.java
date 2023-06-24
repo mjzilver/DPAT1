@@ -70,17 +70,14 @@ public class NormalBoardBuilder implements IBoardBuilder {
         board.setRows(rows);
         board.setBoxes(boxes);
 
-        ArrayList<Integer> nums = new ArrayList<>();
+        int index = 0;
+
         for (String line : fileContent) {
             for (int i = 0; i < line.length(); i++) {
                 char c = line.charAt(i);
-                nums.add(Character.getNumericValue(c));
-            }
-        }
-        int index = 0;
-        for (int y = 0; y < row; y++) {
-            for (int x = 0; x < col; x++) {
-                board.setCell(y, x, nums.get(index++), CellType.GIVEN);
+                int num = Character.getNumericValue(c);
+                board.setCell(index / col, index % col, num, CellType.GIVEN);
+                index++;
             }
         }
 

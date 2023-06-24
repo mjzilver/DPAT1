@@ -71,7 +71,6 @@ public class Board implements Observable, BoardComponent {
 
         if (cell.getValue() == number) {
             cell.emptyCell();
-            cell.setValue(0);
         } else {
             cell.setValue(number);
             cell.setType(type);
